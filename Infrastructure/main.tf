@@ -10,11 +10,11 @@ terraform {
     backend "gcs" {}
 }
 
-//calling out the module from dev folder 
 module "Dev" { 
    count  = var.deployment_env == "dev" ? 1 : 0 
    source = "./Env/Dev"
    region = var.region
+   project_id = var.project_id
 } 
  
 module "prod" { 

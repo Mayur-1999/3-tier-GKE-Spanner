@@ -8,7 +8,6 @@ variable "project_id" {
 variable "network_name" {
   description = "The name of the network where subnets will be created"
   type        = string
-  default     = "windows-network"
 }
 
 
@@ -43,3 +42,4 @@ variable "mtu" {
   description = "The network MTU (If set to 0, meaning MTU is unset - defaults to '1460'). Recommended values: 1460 (default for historic reasons), 1500 (Internet default), or 8896 (for Jumbo packets). Allowed are all values in the range 1300 to 8896, inclusively."
   default     = 0
 }
+

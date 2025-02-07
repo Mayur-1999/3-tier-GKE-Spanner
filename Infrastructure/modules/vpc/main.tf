@@ -1,3 +1,11 @@
+###############################################################################
+# VPC Module
+# -----------------------------------------------------------------------------
+# main.tf
+###############################################################################
+
+
+
 #VPC configuration
 resource "google_compute_network" "network" {
   name                            = var.network_name
@@ -8,3 +16,11 @@ resource "google_compute_network" "network" {
   delete_default_routes_on_create = var.delete_default_internet_gateway_routes
   mtu                             = var.mtu
 }
+
+
+
+
+
+
+
+

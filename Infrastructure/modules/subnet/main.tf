@@ -58,6 +58,6 @@ resource "google_compute_subnetwork" "subnetwork" {
     var.secondary_ranges[each.value.subnet_name][i]
   ]
 
-  purpose = var.purpose
-  role    = var.role
+  purpose = lookup(each.value, "purpose", null)
+  role    = lookup(each.value, "role", null)
 }

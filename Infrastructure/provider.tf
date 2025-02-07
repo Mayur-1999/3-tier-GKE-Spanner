@@ -1,12 +1,23 @@
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs
+
 terraform {
   required_providers {
     google = {
-      source = "hashicorp/google"
-      version = "4.68.0"
+      source  = "hashicorp/google"
+      version = "~> 4.0"
     }
   }
 }
 
+
+
 provider "google" {
-  # Configuration options
+  
+  project = var.project_id
+  region  = var.region
+
 }
+
+
+
+

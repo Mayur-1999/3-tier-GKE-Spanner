@@ -62,4 +62,3 @@ resource "google_compute_firewall" "ingress_compute_firewall" {
 
 
 
-

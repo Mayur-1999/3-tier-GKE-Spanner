@@ -1,4 +1,3 @@
-
 output "firewall" {
   description = "Firewall rule configuration"
   value = {
@@ -25,4 +24,5 @@ output "network" {
     self_link = google_compute_firewall.ingress_compute_firewall.network
   }
 }
+
 

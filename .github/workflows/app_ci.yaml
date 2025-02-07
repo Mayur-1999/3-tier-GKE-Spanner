@@ -1,0 +1,18 @@
+name: Application CI 
+on:
+  push:
+    branches: 
+      - dev
+jobs:
+  Application Artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Echo
+        run: echo "Creating artifact"
+        
+      - uses: actions/upload-artifact@main
+        name: Uploading Application Artifact
+        with:
+          name: Application Artifacts
+          path: ./*

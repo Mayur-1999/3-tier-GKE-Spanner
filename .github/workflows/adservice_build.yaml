@@ -1,0 +1,40 @@
+name: AdService Build
+on:
+  push:
+    branches: 
+      - dev
+jobs:
+  Docker Build: 
+    name: 'Docker Build'
+    #needs: terraform2
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: /home/runner/work/SRE-Three-Tier-DemoApp/SRE-Three-Tier-DemoApp/
+
+    steps:
+            
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: gcloud 
+        uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+        with:
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          project_id: ${{ secrets.GKE_PROJECT }}  
+
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      - name: docker build and push
+        run: |
+            cd src/frontend
+            go mod tidy
+            docker build -t gcr.io/${{env.SPANNER_PROJECT}}/frontend:${{github.run_number}} .
+            docker push gcr.io/${{env.SPANNER_PROJECT}}/frontend:${{github.run_number}}    
+      
+      - name: env config 
+        run: |
+          sed -i 's/dockerv1/${{env.SPANNER_PROJECT}}/g' ${{ github.workspace }}/release/kubernetes-manifests.yaml
+          sed -i 's/frv1/frontend:${{github.run_number}}/g' ${{ github.workspace }}/release/kubernetes-manifests.yaml
