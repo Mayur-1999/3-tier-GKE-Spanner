@@ -1,9 +1,6 @@
 name: Application CD
 on:
-  push:
-    branches: 
-      - dev
-  #workflow_dispatch: 
+  workflow_dispatch: 
 
 jobs:
   Deploy-Application:
@@ -16,8 +13,8 @@ jobs:
         workflow: app_ci.yaml
         github_token: ${{ github.token }}
         repo: ${{ github.repository }}
-        name: Artifacts
-        path: Artifacts
+        name: Application Artifacts
+        path: Application Artifacts
 
     - name: List Content
       run: |

@@ -3,9 +3,16 @@ on:
   push:
     branches: 
       - dev
+    paths: 
+      - Application
+      - .github/workflows/app_ci.yaml
 jobs:
   Application-Artifact:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
+    defaults:
+      run:
+        shell: bash
+        working-directory: /home/runner/work/3-Tier-GKE-SQL/3-Tier-GKE-SQL/Application
     steps:
       - uses: actions/checkout@v3
       - name: Echo
