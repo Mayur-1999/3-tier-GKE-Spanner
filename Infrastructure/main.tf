@@ -17,8 +17,7 @@ module "Dev" {
    region = var.region
 } 
  
-# module "prod" { 
-#    count  = var.deployment_env == "prod" ? 1 : 0 
-#    source = "./Env/prod"
-#    region = var.region
-# } 
+module "prod" { 
+   count  = var.deployment_env == "prod" ? 1 : 0 
+   source = "./Env/prod"
+} 

@@ -2,9 +2,9 @@ name: Generate terraform docs
 on:
   push:
     branches: 
-      - main
+      - dev
 jobs:
-  docs:
+  Docs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -14,7 +14,7 @@ jobs:
     - name: Render terraform docs inside the TF_README.md
       uses: terraform-docs/gh-actions@v1.3.0
       with:
-        working-dir: ./Infrastructure
+        working-dir: ./Infrastructure/dev ,./Infrastructure/prod
         output-file: TF_README.md
         output-method: inject
         git-push: "true"
