@@ -5,38 +5,30 @@ No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+No providers.
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_MySql"></a> [MySql](#module\_MySql) | ./modules/MySQL | n/a |
-| <a name="module_app-fw"></a> [app-fw](#module\_app-fw) | ./modules/firewall | n/a |
-| <a name="module_proxy-subnet"></a> [proxy-subnet](#module\_proxy-subnet) | ./modules/subnet | n/a |
-| <a name="module_subnet"></a> [subnet](#module\_subnet) | ./modules/subnet | n/a |
-| <a name="module_test-cluster"></a> [test-cluster](#module\_test-cluster) | ./modules/GKE | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | ./modules/vpc | n/a |
+| <a name="module_allow-ssh-fw-001"></a> [allow-ssh-fw-001](#module\_allow-ssh-fw-001) | ./modules/firewall | n/a |
+| <a name="module_gbg-app-fw-001"></a> [gbg-app-fw-001](#module\_gbg-app-fw-001) | ./modules/firewall | n/a |
+| <a name="module_spanner"></a> [spanner](#module\_spanner) | ./modules/spanner | n/a |
+| <a name="module_sre-cluster"></a> [sre-cluster](#module\_sre-cluster) | ./modules/gke | n/a |
+| <a name="module_usc1-trust-vpc-001"></a> [usc1-trust-vpc-001](#module\_usc1-trust-vpc-001) | ./modules/vpc | n/a |
+| <a name="module_usc1-trustsubnet-001"></a> [usc1-trustsubnet-001](#module\_usc1-trustsubnet-001) | ./modules/subnet | n/a |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [google_project_iam_binding.cloudsql_client](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_binding) | resource |
-| [google_project_iam_binding.logging_logWriter](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_binding) | resource |
-| [google_service_account.service_acc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
+No resources.
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_dbname"></a> [dbname](#input\_dbname) | The name for sample app database. | `string` | `"sample-app-db"` | no |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project ID. | `string` | `""` | no |
-| <a name="input_region"></a> [region](#input\_region) | Region to deploy the resource. | `string` | `"us-east1"` | no |
-| <a name="input_service_account_email"></a> [service\_account\_email](#input\_service\_account\_email) | Email ID of service account. | `string` | `""` | no |
-| <a name="input_user"></a> [user](#input\_user) | sample app DB user username. | `string` | `"wpuser"` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | n/a | `any` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
+| <a name="input_service_account"></a> [service\_account](#input\_service\_account) | n/a | `string` | `""` | no |
 
 ## Outputs
 
