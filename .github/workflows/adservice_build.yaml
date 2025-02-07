@@ -5,7 +5,7 @@ on:
       - dev
 jobs:
   Docker Build: 
-    name: 'Docker Build'
+    name: 'docker-build'
     #needs: terraform2
     runs-on: ubuntu-latest
     defaults:
