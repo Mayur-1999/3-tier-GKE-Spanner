@@ -31,22 +31,21 @@ jobs:
         workflow: app_ci.yaml
         github_token: ${{ github.token }}
         repo: ${{ github.repository }}
-        name: Application Artifacts
-        path: Application Artifacts
+        name: Application-Artifacts
+        path: Application-Artifacts
 
     - name: List Content
       run: |
           pwd
-          ls
-          cd Application Artifacts           
+          ls    
 
   Build-Application:
     runs-on: ubuntu-latest
     steps:
     - name: List Content
       run: |
+          cd Application-Artifacts
           ls 
-          pwd
     
     - name: Docker Version
       run: |
@@ -54,5 +53,5 @@ jobs:
 
     - name: Docker Build
       run: |
-          cd Application Artifacts/Application/bank-of-anthos/src/frontend/Dockerfile
+          cd Application-Artifacts/Application/bank-of-anthos/src/frontend/Dockerfile
           docker build --t . 
