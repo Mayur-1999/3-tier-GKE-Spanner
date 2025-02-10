@@ -20,9 +20,6 @@ jobs:
     - name: List Content
       run: |
           ls 
-          #tee Application-Artifacts
-          cd Application-Artifacts
-          ls 
 
     - name: Docker Version
       run: |
@@ -30,7 +27,7 @@ jobs:
 
     - name: Docker Build
       run: |
-          cd Application-Artifacts/Application/bank-of-anthos/src/frontend/Dockerfile
+          cd Application-Artifacts/Application/bank-of-anthos/src/frontend
           docker build --t . 
     
     - name: List Image
