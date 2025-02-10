@@ -4,7 +4,7 @@ on:
     branches: 
       - dev
     paths: 
-      - Infrastructure
+      - Infrastructure/*
       - .github/workflows/infra_ci.yaml
 jobs:
   Infrastructure-Artifact:
@@ -37,4 +37,4 @@ jobs:
         name: Uploading Infrastructure Artifact
         with:
           name: Infrastructure-Artifacts
-          path: ./*
+          path: ./Infrastructure/*
