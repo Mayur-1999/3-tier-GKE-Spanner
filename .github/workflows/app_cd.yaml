@@ -36,7 +36,8 @@ jobs:
 
     - name: List Content
       run: |
-          cd Application Artifacts
+          pwd
+          #cd Application Artifacts
           ls           
 
   Build-Application:
