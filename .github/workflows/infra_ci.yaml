@@ -16,10 +16,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: List Content
         run: |
             ls 
+
+      - name: Update Backend
+        run: |
+            sed 's/gcs/local/g' backend.tf
+            cat backend.tf
+        
       - name: 'Set up Terraform'
         uses: hashicorp/setup-terraform@v1
       
@@ -28,7 +34,12 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
-
+      
+      - name: Update Backend
+        run: |
+            sed 's/local/gcs/g' backend.tf
+            cat backend.tf
+      
       - uses: actions/checkout@v3
       - name: Echo
         run: echo "Creating artifact"
