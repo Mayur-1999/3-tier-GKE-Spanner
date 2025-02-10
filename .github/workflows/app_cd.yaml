@@ -37,16 +37,16 @@ jobs:
     - name: List Content
       run: |
           pwd
-          #cd Application Artifacts
-          ls           
+          ls
+          cd Application Artifacts           
 
   Build-Application:
     runs-on: ubuntu-latest
     steps:
     - name: List Content
       run: |
-          cd Application Artifacts
           ls 
+          pwd
     
     - name: Docker Version
       run: |
