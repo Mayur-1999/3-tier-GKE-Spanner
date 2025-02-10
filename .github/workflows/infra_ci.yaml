@@ -1,0 +1,43 @@
+name: Infrastructure CI 
+on:
+  push:
+    branches: 
+      - dev
+    paths: 
+      - Infrastructure
+      - .github/workflows/infra_ci.yaml
+jobs:
+  Infrastructure-Artifact:
+    runs-on: ubuntu-latest    
+    defaults:
+      run:
+        shell: bash
+        working-directory: /home/runner/work/3-tier-GKE-SQL/3-tier-GKE-SQL/Infrastructure
+    steps:
+      - name: Change WRKDIR
+        run: |
+            echo "Changing directory to Infrastructure"
+            cd Infrastructure
+            ls
+            
+      - uses: actions/checkout@v3
+      - name: Echo
+        run: echo "Creating artifact"
+        
+      - uses: actions/upload-artifact@main
+        name: Uploading Infrastructure Artifact
+        with:
+          name: Infrastructure-Artifacts
+          path: ./*
+
+      - name: Change WRKDIR
+        run: | 
+           pwd
+           ls
+           cd Infrastructure-Artifacts
+      
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
