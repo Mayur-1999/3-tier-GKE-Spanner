@@ -3,7 +3,7 @@
 
 terraform {
    backend "gcs" {
-   bucket = "sre-statefiles-bucket-0014"
+   bucket = "statefile-bucket-usc-001"
    prefix = "terraform/state"
   }
 }

@@ -1,15 +1,3 @@
-provider "google" {
-    region = var.region
-}
-
-provider "google-beta" {
-    region = var.region
-}
-
-terraform {
-    backend "gcs" {}
-}
-
 module "Dev" { 
    count  = var.deployment_env == "dev" ? 1 : 0 
    source = "./Env/Dev"
