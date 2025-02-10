@@ -20,8 +20,9 @@ jobs:
     - name: List Content
       run: |
           ls 
-          tee Application-Artifacts
+          #tee Application-Artifacts
           cd Application-Artifacts
+          ls 
 
     - name: Docker Version
       run: |
