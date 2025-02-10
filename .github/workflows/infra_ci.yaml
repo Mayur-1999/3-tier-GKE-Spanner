@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: Change WRKDIR
         run: |
+            ls 
             echo "Changing directory to Infrastructure"
             cd Infrastructure
             ls
