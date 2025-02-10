@@ -3,7 +3,25 @@ on:
   workflow_dispatch: 
 
 jobs:
-  Deploy-Application:
+  # Build-Application:
+  #   runs-on: ubuntu-latest
+  #   steps:
+
+  #   - name: Download Artifacts
+  #     uses: dawidd6/action-download-artifact@v8
+  #     with:
+  #       workflow: app_ci.yaml
+  #       github_token: ${{ github.token }}
+  #       repo: ${{ github.repository }}
+  #       name: Application Artifacts
+  #       path: Application Artifacts
+
+  #   - name: List Content
+  #     run: |
+  #         cd Application Artifacts
+  #         ls 
+
+  Download-Artifacts:
     runs-on: ubuntu-latest
     steps:
 
@@ -19,5 +37,21 @@ jobs:
     - name: List Content
       run: |
           cd Application Artifacts
+          ls           
+
+  Build-Application:
+    runs-on: ubuntu-latest
+    steps:
+    - name: List Content
+      run: |
+          cd Application Artifacts
           ls 
-          
+    
+    - name: Docker Version
+      run: |
+          docker --version
+
+    - name: Docker Build
+      run: |
+          cd Application Artifacts/Application/bank-of-anthos/src/frontend/Dockerfile
+          docker build --t . 
