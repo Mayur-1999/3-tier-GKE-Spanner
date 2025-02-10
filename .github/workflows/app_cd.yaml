@@ -22,6 +22,7 @@ jobs:
   #         ls 
 
   Download-Artifacts:
+    name: 'Download Artifacts'
     runs-on: ubuntu-latest
     steps:
 
@@ -40,12 +41,14 @@ jobs:
           ls    
 
   Build-Application:
+    name: 'Build Application'
+    needs: Download-Artifacts
     runs-on: ubuntu-latest
     steps:
     - name: List Content
       run: |
-          cd Application-Artifacts
           ls 
+          cd Application-Artifacts
     
     - name: Docker Version
       run: |
