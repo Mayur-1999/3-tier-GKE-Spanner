@@ -21,8 +21,6 @@ jobs:
         run: |
             ls 
             echo "Changing directory to Infrastructure"
-            cd Infrastructure
-            ls
             
       - uses: actions/checkout@v3
       - name: Echo
