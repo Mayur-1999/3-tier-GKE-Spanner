@@ -28,7 +28,7 @@ jobs:
     - name: Docker Build
       run: |
           cd Application-Artifacts/Application/bank-of-anthos/src/frontend
-          docker build --t . 
+          docker build -t app .
     
     - name: List Image
       run: |
