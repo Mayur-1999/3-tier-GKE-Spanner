@@ -17,11 +17,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Change WRKDIR
+      - name: List Content
         run: |
             ls 
-            echo "Changing directory to Infrastructure"
-            
+      
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
       - uses: actions/checkout@v3
       - name: Echo
         run: echo "Creating artifact"
@@ -31,15 +36,3 @@ jobs:
         with:
           name: Infrastructure-Artifacts
           path: ./*
-
-      - name: Change WRKDIR
-        run: | 
-           pwd
-           ls
-           cd Infrastructure-Artifacts
-      
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate
