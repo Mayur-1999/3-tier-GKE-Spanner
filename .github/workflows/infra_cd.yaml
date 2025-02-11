@@ -20,6 +20,8 @@ jobs:
       - name: List Content
         run: |
             ls 
+            cd ./Infrastructure-Artifacts
+            ls
      
       - name: Checkout
         uses: actions/checkout@v2

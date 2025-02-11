@@ -15,11 +15,13 @@ jobs:
         working-directory: /home/runner/work/3-tier-GKE-SQL/3-tier-GKE-SQL/Application
     steps:
       - uses: actions/checkout@v3
-      - name: Echo
+        name: Checkout
+
+      - name: Creating artifact
         run: echo "Creating artifact"
         
       - uses: actions/upload-artifact@main
         name: Uploading Application Artifact
         with:
           name: Application-Artifacts
-          path: ./*
+          path: ./Application/*
