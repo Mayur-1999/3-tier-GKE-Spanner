@@ -1,200 +1,44 @@
-# Default values for onlineboutique.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# AD SERVICE
+ad-service-name: adservice
+ad-service-image: gcr.io/google-samples/microservices-demo/adservice:v0.6.0
 
-images:
-  repository: gcr.io/google-samples/microservices-demo
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+# CART SERVICE
+cart-service-name: cartservice
+cart-service-image: gcr.io/google-samples/microservices-demo/cartservice:v0.6.0
+spanner-connection-string: "projects/${SPANNER_PROJECT}/instances/${SPANNER_INSTANCE}/databases/${SPANNER_DATABASE}"
+spanner-db-user-sa: "spanner-db-user-sa@qwiklabs-gcp-04-5dc03957119b.iam.gserviceaccount.com"
 
-serviceAccounts:
-  # Specifies whether service accounts should be created.
-  create: false
-  # Annotations to add to the service accounts.
-  annotations: {}
-  # Annotations to add only for the cartservice app. This allows to follow the least privilege principle where only cartservice needs to connect to external database for example via Workload Identity.
-  annotationsOnlyForCartservice: false
+# CHECKOUT SERVICE
+checkout-service-name: checkoutservice
+checkout-service-image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.6.0
 
-# Specifies if the livenessProbe and readinessProbe are using the native gRPC support with Kubernetes 1.24.
-nativeGrpcHealthCheck: false
+# CURRENCY SERVICE
+currency-service-name: currencyservice
+currency-service-image: gcr.io/google-samples/microservices-demo/currencyservice:v0.6.0
 
-networkPolicies:
-  # Specifies if the NetworkPolicies are created or not. If true, one fine granular NetworkPolicy per app is created.
-  create: false
+# EMAIL SERVICE
+email-service-name: emailservice
+email-service-image: gcr.io/google-samples/microservices-demo/emailservice:v0.6.0
 
-sidecars:
-  # Specifies if the Sidecars are created or not. If true, one fine granular Sidecar per app is created.
-  create: false
+# FRONTEND
+frontend-service-name: frontend
+frontend-service-image: frontend_image
 
-authorizationPolicies:
-  # Specifies if the AuthorizationPolicies are created or not. If true, one fine granular AuthorizationPolicy per app is created.
-  create: false
+# PAYMENT
+payment-service-name: paymentservice
+payment-service-image: gcr.io/google-samples/microservices-demo/paymentservice:v0.6.0
 
-opentelemetryCollector:
-  create: false
-  name: opentelemetrycollector
-  # Specifies the project id for the otel collector. If set as "PROJECT_ID" (default value), an initContainer will automatically retrieve the project id value from the metadata server.
-  projectId: "PROJECT_ID"
+# PRODUCT CATALOG
+product-catalog-service-name: productcatalogservice
+product-catalog-service-image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.6.0
 
-googleCloudOperations:
-  profiler: false
-  tracing: false
-  metrics: false
+# RECOMMENDATION
+recommendation-service-name: recommendationservice
+recommendation-service-image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.6.0
 
-seccompProfile:
-  enable: false
-  type: RuntimeDefault
+# SHIPPING
+shipping-service-name: shippingservice
+shipping-service-image:  gcr.io/google-samples/microservices-demo/shippingservice:v0.6.0
 
-adService:
-  create: true
-  name: adservice
-  resources:
-    requests:
-      cpu: 200m
-      memory: 180Mi
-    limits:
-      cpu: 300m
-      memory: 300Mi
 
-cartService:
-  create: true
-  name: cartservice
-  resources:
-    requests:
-      cpu: 200m
-      memory: 64Mi
-    limits:
-      cpu: 300m
-      memory: 128Mi
 
-checkoutService:
-  create: true
-  name: checkoutservice
-  resources:
-    requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
-
-currencyService:
-  create: true
-  name: currencyservice
-  resources:
-    requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
-
-emailService:
-  create: true
-  name: emailservice
-  resources:
-    requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
-
-frontend:
-  create: true
-  name: frontend
-  externalService: true
-  cymbalBranding: false
-  # One of: local, gcp, aws, azure, onprem, alibaba. When not set, defaults to "local" unless running in GKE, otherwise auto-sets to gcp.
-  platform: local
-  singleSharedSession: false
-  virtualService:
-    create: false
-    hosts:
-    - "*"
-    gateway:
-      name: asm-ingressgateway
-      namespace: asm-ingress
-      labelKey: asm
-      labelValue: ingressgateway
-  resources:
-    requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
-
-loadGenerator:
-  create: true
-  name: loadgenerator
-  checkFrontendInitContainer: true
-  resources:
-    requests:
-      cpu: 300m
-      memory: 256Mi
-    limits:
-      cpu: 500m
-      memory: 512Mi
-
-paymentService:
-  create: true
-  name: paymentservice
-  resources:
-    requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
-
-productCatalogService:
-  create: true
-  name: productcatalogservice
-  # Specifies an extra latency to any request on productcatalogservice, by default no extra latency.
-  extraLatency: ""
-  resources:
-    requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
-
-recommendationService:
-  create: true
-  name: recommendationservice
-  resources:
-    requests:
-      cpu: 100m
-      memory: 220Mi
-    limits:
-      cpu: 200m
-      memory: 450Mi
-
-shippingService:
-  create: true
-  name: shippingservice
-  resources:
-    requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 128Mi
-
-cartDatabase:
-  # Specifies the type of the cartservice's database, could be either redis or spanner.
-  type: redis
-  connectionString: "redis-cart:6379"
-  inClusterRedis:
-    create: true
-    name: redis-cart
-    # Uses the public redis image from Docker Hub, otherwise will use the images.repository.
-    publicRepository: true
-  externalRedisTlsOrigination:
-    enable: false
-    name: exernal-redis-tls-origination
-    endpointAddress: ""
-    endpointPort: ""
-    certificate: ""

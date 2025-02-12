@@ -28,7 +28,10 @@ variable "default_region" {
   default     = "us-central1"
 }
 
-
 variable "region" {
-  type        = string
+  type = string
+}
+
+variable "bucket_exist" {
+  type = bool
 }

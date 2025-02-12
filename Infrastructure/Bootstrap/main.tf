@@ -1,5 +1,6 @@
-resource "google_storage_bucket" "gbg-coe-001" {
-  project                     = var.project_id           #google_project.main.name
+resource "google_storage_bucket" "backend_bucket" {
+  count                       = var.bucket_exist ? 1 : 0
+  project                     = var.project_id
   name                        = var.state_bucket_name
   location                    = var.default_region
   labels                      = var.storage_bucket_labels

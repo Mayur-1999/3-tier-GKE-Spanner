@@ -1,0 +1,57 @@
+name: Frontend Build
+on:
+  push:
+    branches: 
+      - dev
+    paths: 
+      - Application/bank-of-anthos/src/frontend/*
+      - .github/workflows/app_ci.yaml
+jobs:
+  Frontend-Image-Build: 
+    name: 'Frontend Docker Build'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: /home/runner/work/3-tier-GKE-SQL/3-tier-GKE-SQL/Application
+
+    steps:
+            
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # - name: gcloud 
+      #   uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+      #   with:
+      #     service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+      #     project_id: ${{ secrets.PROJECT_ID }}  
+
+      # - run: |-
+      #     gcloud --quiet auth configure-docker
+
+      - name: docker build and push
+        run: |
+            cd Application/bank-of-anthos/src/frontend/
+            go mod tidy
+            docker build -t gcr.io/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}} .
+            #docker push gcr.io/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}}   
+
+      - name: List Docker Image
+        run: |
+            docker images 
+      
+      - name: env config 
+        run: |
+          sed -i 's/frontend_image/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}}/g' ${{ github.workspace }}/Application/helm-chart/values.yaml
+
+      - uses: actions/checkout@v3
+        name: Checkout
+
+      - name: Creating artifact
+        run: echo "Creating artifact"
+        
+      - uses: actions/upload-artifact@main
+        name: Uploading Application Artifact
+        with:
+          name: Application-Artifacts
+          path: ./Application/*          

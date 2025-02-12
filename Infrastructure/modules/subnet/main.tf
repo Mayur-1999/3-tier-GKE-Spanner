@@ -9,7 +9,7 @@
 
 locals {
   subnets = {
-    for x in var.subnets :"${x.subnet_region}/${x.subnet_name}" => x
+    for x in var.subnets : "${x.subnet_region}/${x.subnet_name}" => x
   }
 }
 
@@ -17,17 +17,17 @@ locals {
 #Subnet configuration
 resource "google_compute_subnetwork" "subnetwork" {
   # count = var.auto_create_subnetworks ? 0 : 1    # errors !!  
-  for_each                 = local.subnets 
+  for_each                 = local.subnets
   name                     = each.value.subnet_name
   ip_cidr_range            = each.value.subnet_ip
   region                   = each.value.subnet_region
-  network     = var.network_name
-  project     = var.project_id
-  description = lookup(each.value, "description", null)   #lookup(map, key, default)
+  network                  = var.network_name
+  project                  = var.project_id
+  description              = lookup(each.value, "description", null) #lookup(map, key, default)
   private_ip_google_access = lookup(each.value, "subnet_private_access", "false")
-   
-  
-#log config 
+
+
+  #log config 
 
   dynamic "log_config" {
     for_each = lookup(each.value, "subnet_flow_logs", false) ? [{
@@ -45,7 +45,7 @@ resource "google_compute_subnetwork" "subnetwork" {
     }
   }
 
-#Secondary_ranges
+  #Secondary_ranges
 
   secondary_ip_range = [
     for i in range(
