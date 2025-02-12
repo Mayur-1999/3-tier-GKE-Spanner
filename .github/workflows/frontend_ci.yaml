@@ -35,9 +35,8 @@ jobs:
         run: |
             ls
             cd bank-of-anthos/src/frontend/
-            go mod tidy
-            docker build -t gcr.io/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}} .
-            #docker push gcr.io/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}}   
+            docker build -t gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}} .
+            #docker push gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}   
 
       - name: List Docker Image
         run: |
@@ -45,7 +44,7 @@ jobs:
       
       - name: env config 
         run: |
-          sed -i 's/frontend_image/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}}/g' ${{ github.workspace }}/Application/helm-chart/values.yaml
+          sed -i 's/frontend_image/gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}/g' ${{ github.workspace }}/Application/helm-chart/values.yaml
 
       - uses: actions/checkout@v3
         name: Checkout
