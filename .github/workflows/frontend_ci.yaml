@@ -33,7 +33,8 @@ jobs:
 
       - name: docker build and push
         run: |
-            cd Application/bank-of-anthos/src/frontend/
+            ls
+            cd bank-of-anthos/src/frontend/
             go mod tidy
             docker build -t gcr.io/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}} .
             #docker push gcr.io/${{secrets.PROJECT_ID}}/frontend:${{github.run_number}}   
