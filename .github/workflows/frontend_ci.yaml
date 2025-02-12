@@ -42,12 +42,9 @@ jobs:
         run: |
             docker images 
       
-      - name: env config 
+      - name: Update Front end image name
         run: |
           sed -i 's#frontend_image#gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}#g' ${{ github.workspace }}/Application/helm-chart/values.yaml
-
-      - uses: actions/checkout@v3
-        name: Checkout
 
       - name: Creating artifact
         run: echo "Creating artifact"
@@ -56,4 +53,4 @@ jobs:
         name: Uploading Application Artifact
         with:
           name: Application-Artifacts
-          path: ./Application/*          
+          path: ${{ github.workspace }}/Application/*          
