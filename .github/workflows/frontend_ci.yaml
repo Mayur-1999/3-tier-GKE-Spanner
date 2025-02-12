@@ -1,11 +1,13 @@
 name: Frontend Build
 on:
+  workflow_dispatch:
   push:
     branches: 
       - dev
     paths: 
       - Application/bank-of-anthos/src/frontend/*
-      - .github/workflows/app_ci.yaml
+      - .github/workflows/frontend_ci.yaml
+
 jobs:
   Frontend-Image-Build: 
     name: 'Frontend Docker Build'
@@ -13,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/runner/work/3-tier-GKE-SQL/3-tier-GKE-SQL/Application
+        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/Application
 
     steps:
             

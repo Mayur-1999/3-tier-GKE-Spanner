@@ -12,7 +12,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/runner/work/3-tier-GKE-SQL/3-tier-GKE-SQL/Infrastructure
+        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/Infrastructure
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,18 +24,18 @@ jobs:
       - name: 'Set up Terraform'
         uses: hashicorp/setup-terraform@v1
       
-      - name: Terraform Init
-        run: terraform init -backend=false
+      # - name: Terraform Init
+      #   run: terraform init -backend=false
 
-      - name: Terraform Validate
-        run: terraform validate
+      # - name: Terraform Validate
+      #   run: terraform validate
       
-      - uses: actions/checkout@v3
-      - name: Echo
-        run: echo "Creating artifact"
+      # - uses: actions/checkout@v3
+      # - name: Echo
+      #   run: echo "Creating artifact"
         
-      - uses: actions/upload-artifact@main
-        name: Uploading Infrastructure Artifact
-        with:
-          name: Infrastructure-Artifacts
-          path: ./Infrastructure/*
+      # - uses: actions/upload-artifact@main
+      #   name: Uploading Infrastructure Artifact
+      #   with:
+      #     name: Infrastructure-Artifacts
+      #     path: ./Infrastructure/*

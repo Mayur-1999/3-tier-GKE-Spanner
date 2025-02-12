@@ -12,7 +12,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/runner/work/3-tier-GKE-SQL/3-tier-GKE-SQL/Application
+        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/Application
     steps:
       - uses: actions/checkout@v3
         name: Checkout
