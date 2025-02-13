@@ -1,0 +1,9 @@
+# FRONTEND
+frontend-service-name: frontend
+frontend-service-image: frontend_image
+internal-service:
+  port: 80
+  type: ClusterIP
+external-service:
+  port: 80
+  type: LoadBalancer

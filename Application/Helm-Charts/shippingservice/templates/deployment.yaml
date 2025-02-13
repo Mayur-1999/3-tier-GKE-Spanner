@@ -1,56 +1,37 @@
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: {{ .Values.email-service-name }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.email-service-name }}
-spec:
-  ports:
-  - name: grpc
-    port: 5000
-    targetPort: 8080
-  selector:
-    app: {{ .Values.email-service-name }}-{{ .Release.Revision }}
-  type: ClusterIP
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.email-service-name }}-{{ .Release.Revision }}
+  name: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.email-service-name }}-{{ .Release.Revision }}
+      app: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}
   template:
     metadata:
       labels:
-        app: {{ .Values.email-service-name }}-{{ .Release.Revision }}
+        app: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}
     spec:
       containers:
       - env:
         - name: PORT
-          value: "8080"
+          value: "50051"
         - name: DISABLE_PROFILER
           value: "1"
-        image: {{ .Values.email-service-image }}
+        image: {{ .Values.shipping-service-image }}
         livenessProbe:
           exec:
             command:
             - /bin/grpc_health_probe
-            - -addr=:8080
-          periodSeconds: 5
+            - -addr=:50051
         name: server
         ports:
-        - containerPort: 8080
+        - containerPort: 50051
         readinessProbe:
           exec:
             command:
             - /bin/grpc_health_probe
-            - -addr=:8080
+            - -addr=:50051
           periodSeconds: 5
         resources:
           limits:
@@ -71,5 +52,4 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.email-service-name }}-{{ .Release.Revision }}
-      terminationGracePeriodSeconds: 5
+      serviceAccountName: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}

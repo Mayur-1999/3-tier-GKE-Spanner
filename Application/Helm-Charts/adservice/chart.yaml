@@ -1,4 +1,4 @@
 apiVersion: v2
-name: online-botique
+name: adservice
 description: A Helm chart for online-botique aapplication for Kubernetes
 type: application

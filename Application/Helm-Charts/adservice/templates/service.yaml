@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.ad-service-name }}
+spec:
+  ports:
+  - name: grpc
+    port: {{ .Values.service.port }} #9555
+    targetPort: 9555
+  selector:
+    app: {{ .Values.ad-service-name }}-{{ .Release.Revision }}
+  type: {{ .Values.service.type }}
+  # ClusterIP

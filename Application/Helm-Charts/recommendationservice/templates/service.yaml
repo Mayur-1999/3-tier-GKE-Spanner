@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.recommendation-service-name }}
+spec:
+  ports:
+  - name: grpc
+    port: {{ .Values.service.port }} #8080
+    targetPort: 8080
+  selector:
+    app: {{ .Values.recommendation-service-name }}-{{ .Release.Revision }}
+  type: {{ .Values.service.type }} #ClusterIP

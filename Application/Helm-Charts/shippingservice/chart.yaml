@@ -1,4 +1,4 @@
 apiVersion: v2
-name: online-botique
+name: shippingservice
 description: A Helm chart for online-botique aapplication for Kubernetes
 type: application

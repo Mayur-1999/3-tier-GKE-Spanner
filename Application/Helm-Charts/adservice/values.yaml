@@ -1,0 +1,6 @@
+# AD SERVICE
+ad-service-name: adservice
+ad-service-image: gcr.io/google-samples/microservices-demo/adservice:v0.6.0
+service: 
+  port: 9555
+  type: ClusterIP

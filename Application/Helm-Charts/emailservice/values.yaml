@@ -1,0 +1,6 @@
+# EMAIL SERVICE
+email-service-name: emailservice
+email-service-image: gcr.io/google-samples/microservices-demo/emailservice:v0.6.0
+service:
+  port: 5000
+  type: ClusterIP

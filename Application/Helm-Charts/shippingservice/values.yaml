@@ -1,0 +1,6 @@
+# SHIPPING
+shipping-service-name: shippingservice
+shipping-service-image:  gcr.io/google-samples/microservices-demo/shippingservice:v0.6.0
+service:
+  port: 50051
+  type: ClusterIP
