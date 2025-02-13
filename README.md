@@ -9,9 +9,9 @@
 | [![Application CD](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/app_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/app_cd.yaml)|
 
 
-| Readme Update Pipeline Status |
+| Terraform Readme Update Pipeline Status |
 | --------------- |
-| [![Application CD](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/app_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/app_cd.yaml) |
+| [![Generate terraform docs](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/readme.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/readme.yaml) |
 
 | Infrastructure Pipeline Status |
 | --------------- |
