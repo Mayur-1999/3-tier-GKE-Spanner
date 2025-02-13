@@ -3,13 +3,22 @@
 <img width="100%" alt="image001" src="https://github.com/user-attachments/assets/bedf2526-4174-4c53-85ce-447390fa34ca" />
 </div>
 
-| CI Pipeline Status |
+| Application(Test) Pipeline Status |
 | --------------- |
-| [![Generate terraform docs](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/readme.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/readme.yaml) |
 | [![Application CI](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/app_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/app_ci.yaml) |
-| [![Infrastructure CI](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_ci.yaml) |
+| [![Application CD](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/app_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/app_cd.yaml)|
 
-| CD Pipeline Status |
+
+| Readme Update Pipeline Status |
 | --------------- |
 | [![Application CD](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/app_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/app_cd.yaml) |
+
+| Infrastructure Pipeline Status |
+| --------------- |
+| [![Infrastructure CI](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_ci.yaml) |
 | [![Infrastructure CD](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_cd.yaml) |
+
+| Frontend Service Pipeline Status |
+| --------------- |
+|[![Frontend Service Build](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_ci.yaml)|
+|[![Frontend Service Deploy](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_cd.yaml)|
