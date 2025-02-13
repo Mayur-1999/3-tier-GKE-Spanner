@@ -11,7 +11,7 @@ jobs:
     - name: Download Artifacts
       uses: dawidd6/action-download-artifact@v8
       with:
-        workflow: app_ci.yaml
+        workflow: frontend_ci.yaml
         github_token: ${{ github.token }}
         repo: ${{ github.repository }}
         name: Application-Artifacts
