@@ -25,7 +25,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install helm -y 
           helm version
+    
+    # # Setup gcloud CLI
+    # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    #   with:
+    #     service_account_key: ${{ secrets.GKE_SA_KEY }}
+    #     project_id: ${{ vars.PROJECT_ID }}
+    
+    # # Get the GKE credentials so we can deploy to the cluster
+    # - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+    #   with:
+    #     cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
+    #     location: ${{ vars.GKE_ZONE }}
+    #     credentials: ${{ secrets.GKE_SA_KEY }}
 
-    - name: Deploy Frontend Application
-      run: |
-         helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
+    # - name: Deploy Frontend Application
+    #   run: |
+    #      helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend

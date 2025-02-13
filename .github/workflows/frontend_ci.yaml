@@ -1,11 +1,12 @@
-name: Frontend Build
+name: Frontend Service Build
 on:
   workflow_dispatch:
   push:
     branches: 
       - dev
     paths: 
-      - Application/bank-of-anthos/src/frontend/*
+      - Application/Helm-Charts/frontend/*
+      - Application/online-botique-src/frontend/*
       - .github/workflows/frontend_ci.yaml
 
 jobs:
