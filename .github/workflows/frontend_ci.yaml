@@ -45,7 +45,7 @@ jobs:
       
       - name: Update Front end image name
         run: |
-          sed -i 's#frontend_image#gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}#g' ${{ github.workspace }}/Application/Helm-Chart/adservice/values.yaml
+          sed -i 's#frontend_image#gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}#g' ${{ github.workspace }}/Application/Helm-Charts/frontend/values.yaml
 
       - name: Creating artifact
         run: echo "Creating artifact"
