@@ -36,4 +36,6 @@ jobs:
 
     - name: Deploy Frontend Application
       run: |
+         ls
+         cd Application-Artifacts/Helm-Charts
          helm install frontend --debug --dry-run frontend
