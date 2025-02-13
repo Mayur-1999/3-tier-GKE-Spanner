@@ -20,7 +20,9 @@ jobs:
     - name: Change Directory
       run: |
           ls 
-          cd Application-Artifacts/Helm-Charts
+          cd Application-Artifacts
+          ls
+          cd Helm-Charts
           ls
     
     - name: Install Helm
