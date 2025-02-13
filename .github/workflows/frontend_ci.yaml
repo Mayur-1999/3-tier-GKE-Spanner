@@ -26,7 +26,7 @@ jobs:
       #   uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       #   with:
       #     service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
-      #     project_id: ${{ secrets.PROJECT_ID }}  
+      #     project_id: ${{ vars.PROJECT_ID }}  
 
       # - run: |-
       #     gcloud --quiet auth configure-docker
@@ -34,7 +34,7 @@ jobs:
       - name: docker build and push
         run: |
             ls
-            cd bank-of-anthos/src/frontend/
+            cd online-botique-src/frontend/
             go mod tidy
             docker build -t gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}} .
             #docker push gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}   
@@ -45,7 +45,7 @@ jobs:
       
       - name: Update Front end image name
         run: |
-          sed -i 's#frontend_image#gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}#g' ${{ github.workspace }}/Application/helm-chart/values.yaml
+          sed -i 's#frontend_image#gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}#g' ${{ github.workspace }}/Application/Helm-Chart/adservice/values.yaml
 
       - name: Creating artifact
         run: echo "Creating artifact"
