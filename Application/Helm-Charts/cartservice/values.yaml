@@ -1,8 +1,8 @@
 # CART SERVICE
-cart-service-name: cartservice
-cart-service-image: gcr.io/google-samples/microservices-demo/cartservice:v0.6.0
-spanner-connection-string: "projects/${SPANNER_PROJECT}/instances/${SPANNER_INSTANCE}/databases/${SPANNER_DATABASE}"
-spanner-db-user-sa: "spanner-db-user-sa@qwiklabs-gcp-04-5dc03957119b.iam.gserviceaccount.com"
+cart_service_name: cartservice
+cart_service_image: gcr.io/google-samples/microservices-demo/cartservice:v0.6.0
+spanner_connection_string: "projects/${SPANNER_PROJECT}/instances/${SPANNER_INSTANCE}/databases/${SPANNER_DATABASE}"
+spanner_db_user_sa: "spanner-db-user-sa@qwiklabs-gcp-04-5dc03957119b.iam.gserviceaccount.com"
 service: 
   port: 7070
   type: ClusterIP

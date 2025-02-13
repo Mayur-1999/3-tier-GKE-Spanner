@@ -1,6 +1,6 @@
 # PRODUCT CATALOG
-product-catalog-service-name: productcatalogservice
-product-catalog-service-image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.6.0
+product_catalog_service_name: productcatalogservice
+product_catalog_service_image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.6.0
 service:
   port: 3550
   type: ClusterIP

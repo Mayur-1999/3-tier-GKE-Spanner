@@ -1,6 +1,6 @@
 # CHECKOUT SERVICE
-checkout-service-name: checkoutservice
-checkout-service-image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.6.0
+checkout_service_name: checkoutservice
+checkout_service_image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.6.0
 service:
   port: 5050
   type: ClusterIP

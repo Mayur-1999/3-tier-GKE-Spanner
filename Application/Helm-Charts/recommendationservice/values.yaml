@@ -1,6 +1,6 @@
 # RECOMMENDATION
-recommendation-service-name: recommendationservice
-recommendation-service-image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.6.0
+recommendation_service_name: recommendationservice
+recommendation_service_image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.6.0
 service:
   port: 8080
   type: ClusterIP

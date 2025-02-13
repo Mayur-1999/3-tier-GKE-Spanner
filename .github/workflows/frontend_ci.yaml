@@ -35,6 +35,7 @@ jobs:
         run: |
             ls
             cd bank-of-anthos/src/frontend/
+            go mod tidy
             docker build -t gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}} .
             #docker push gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}   
 

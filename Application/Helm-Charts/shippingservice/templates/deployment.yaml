@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}
+  name: {{ .Values.shipping_service_name }}-{{ .Release.Revision }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}
+      app: {{ .Values.shipping_service_name }}-{{ .Release.Revision }}
   template:
     metadata:
       labels:
-        app: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}
+        app: {{ .Values.shipping_service_name }}-{{ .Release.Revision }}
     spec:
       containers:
       - env:
@@ -18,7 +18,7 @@ spec:
           value: "50051"
         - name: DISABLE_PROFILER
           value: "1"
-        image: {{ .Values.shipping-service-image }}
+        image: {{ .Values.shipping_service_image }}
         livenessProbe:
           exec:
             command:
@@ -52,4 +52,4 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.shipping-service-name }}-{{ .Release.Revision }}
+      serviceAccountName: {{ .Values.shipping_service_name }}-{{ .Release.Revision }}

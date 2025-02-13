@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.cart-service-name }}-{{ .Release.Revision }}
+  name: {{ .Values.cart_service_name }}-{{ .Release.Revision }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.cart-service-name }}-{{ .Release.Revision }}
+      app: {{ .Values.cart_service_name }}-{{ .Release.Revision }}
   template:
     metadata:
       labels:
-        app: {{ .Values.cart-service-name }}-{{ .Release.Revision }}
+        app: {{ .Values.cart_service_name }}-{{ .Release.Revision }}
     spec:
       containers:
       - env:
         - name: SPANNER_CONNECTION_STRING
-          value: {{ .Values.spanner-connection-string }}
-        image: {{ .Values.cart-service-image }}
+          value: {{ .Values.spanner_connection_string }}
+        image: {{ .Values.cart_service_image }}
         livenessProbe:
           exec:
             command:
@@ -54,5 +54,5 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.cart-service-name }}
+      serviceAccountName: {{ .Values.cart_service_name }}
       terminationGracePeriodSeconds: 5

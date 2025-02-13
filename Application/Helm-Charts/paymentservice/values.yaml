@@ -1,6 +1,6 @@
 # PAYMENT
-payment-service-name: paymentservice
-payment-service-image: gcr.io/google-samples/microservices-demo/paymentservice:v0.6.0
+payment_service_name: paymentservice
+payment_service_image: gcr.io/google-samples/microservices-demo/paymentservice:v0.6.0
 service: 
   port: 50051
   type: ClusterIP

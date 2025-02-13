@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.email-service-name }}-{{ .Release.Revision }}
+  name: {{ .Values.email_service_name }}-{{ .Release.Revision }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.email-service-name }}-{{ .Release.Revision }}
+      app: {{ .Values.email_service_name }}-{{ .Release.Revision }}
   template:
     metadata:
       labels:
-        app: {{ .Values.email-service-name }}-{{ .Release.Revision }}
+        app: {{ .Values.email_service_name }}-{{ .Release.Revision }}
     spec:
       containers:
       - env:
@@ -18,7 +18,7 @@ spec:
           value: "8080"
         - name: DISABLE_PROFILER
           value: "1"
-        image: {{ .Values.email-service-image }}
+        image: {{ .Values.email_service_image }}
         livenessProbe:
           exec:
             command:
@@ -53,5 +53,5 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.email-service-name }}-{{ .Release.Revision }}
+      serviceAccountName: {{ .Values.email_service_name }}-{{ .Release.Revision }}
       terminationGracePeriodSeconds: 5

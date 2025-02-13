@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.checkout-service-name }}-{{ .Release.Revision }}
+  name: {{ .Values.checkout_service_name }}-{{ .Release.Revision }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.checkout-service-name }}-{{ .Release.Revision }}
+      app: {{ .Values.checkout_service_name }}-{{ .Release.Revision }}
   template:
     metadata:
       labels:
-        app: {{ .Values.checkout-service-name }}-{{ .Release.Revision }}
+        app: {{ .Values.checkout_service_name }}-{{ .Release.Revision }}
     spec:
       containers:
       - env:
@@ -28,7 +28,7 @@ spec:
           value: currencyservice:7000
         - name: CART_SERVICE_ADDR
           value: cartservice:7070
-        image: {{ .Values.checkout-service-image }}
+        image: {{ .Values.checkout_service_image }}
         livenessProbe:
           exec:
             command:
@@ -61,4 +61,4 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.checkout-service-name }}
+      serviceAccountName: {{ .Values.checkout_service_name }}

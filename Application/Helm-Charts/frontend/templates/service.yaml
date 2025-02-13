@@ -2,25 +2,25 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.frontend-service-name }}
+  name: {{ .Values.frontend_service_name }}
 spec:
   ports:
   - name: http
-    port: {{ .Values.internal-service.port }} #80
+    port: {{ .Values.internal_service.port }} #80
     targetPort: 8080
   selector:
-    app: {{ .Values.frontend-service-name }}-{{ .Release.Revision }}
-  type: {{ .Values.internal-service.type }} #ClusterIP
+    app: {{ .Values.frontend_service_name }}-{{ .Release.Revision }}
+  type: {{ .Values.internal_service.type }} #ClusterIP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.frontend-service-name }}-{{ .Release.Revision }}-external
+  name: {{ .Values.frontend_service_name }}-external
 spec:
   ports:
   - name: http
-    port: {{ .Values.external-service.port }} #80
+    port: {{ .Values.external_service.port }} #80
     targetPort: 8080
   selector:
-    app: {{ .Values.frontend-service-name }}-{{ .Release.Revision }}
-  type: {{ .Values.external-service.type }} #LoadBalancer
+    app: {{ .Values.frontend_service_name }}-{{ .Release.Revision }}
+  type: {{ .Values.external_service.type }} #LoadBalancer

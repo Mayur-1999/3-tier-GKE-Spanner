@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.ad-service-name }}-{{ .Release.Revision }}
+  name: {{ .Values.ad_service_name }}-{{ .Release.Revision }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.ad-service-name }}-{{ .Release.Revision }}
+      app: {{ .Values.ad_service_name }}-{{ .Release.Revision }}
   template:
     metadata:
       labels:
-        app: {{ .Values.ad-service-name }}-{{ .Release.Revision }}
+        app: {{ .Values.ad_service_name }}-{{ .Release.Revision }}
     spec:
       containers:
       - env:
         - name: PORT
           value: "9555"
-        image: {{ .Values.ad-service-image }} 
+        image: {{ .Values.ad_service_image }} 
         livenessProbe:
           exec:
             command:
@@ -53,5 +53,5 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.ad-service-name }}
+      serviceAccountName: {{ .Values.ad_service_name }}
       terminationGracePeriodSeconds: 5
