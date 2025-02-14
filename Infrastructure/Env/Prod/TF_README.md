@@ -9,9 +9,7 @@ No providers.
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_MySql"></a> [MySql](#module\_MySql) | ./modules/MySQL | n/a |
+No modules.
 
 ## Resources
 
