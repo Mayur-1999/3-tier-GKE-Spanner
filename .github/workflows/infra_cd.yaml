@@ -53,6 +53,7 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
   Dev-Deployment:
+    name: Dev:Terraform Apply
     runs-on: ubuntu-latest
     if: ${{ inputs.project_env == 'Dev' }}
     needs: Terraform-Plan
@@ -85,7 +86,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       # - name: Terraform Init
-      #   run: terraform init -backend=false
+      #   run: terraform init
 
       # - name: Terraform Validate
       #   run: terraform validate
@@ -103,6 +104,7 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
 
   Test-Deployment:
+    name: Test:Terraform Apply
     runs-on: ubuntu-latest
     if: ${{ inputs.project_env == 'Test' }}
     needs: Terraform-Plan
@@ -126,6 +128,7 @@ jobs:
             ls 
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
             ls
+            echo ${{ inputs.project_env }}
      
       - name: Checkout
         uses: actions/checkout@v2
@@ -134,7 +137,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       # - name: Terraform Init
-      #   run: terraform init -backend=false
+      #   run: terraform init
 
       # - name: Terraform Validate
       #   run: terraform validate
@@ -152,6 +155,7 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
 
   Prod-Deployment:
+    name: Prod:Terraform Apply
     runs-on: ubuntu-latest
     if: ${{ inputs.project_env == 'Prod' }}
     needs: Terraform-Plan
@@ -175,7 +179,8 @@ jobs:
             ls 
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
             ls
-     
+            echo ${{ inputs.project_env }}
+            
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -183,7 +188,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       # - name: Terraform Init
-      #   run: terraform init -backend=false
+      #   run: terraform init
 
       # - name: Terraform Validate
       #   run: terraform validate
