@@ -11,7 +11,7 @@ on:
       - .github/workflows/helm_ci.yaml
 
 jobs:
-  Frontend-Image-Build: 
+  Helm-Build: 
     name: 'Helm Artifact'
     runs-on: ubuntu-latest
     defaults:
