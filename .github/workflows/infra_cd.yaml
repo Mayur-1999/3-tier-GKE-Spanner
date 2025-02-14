@@ -54,7 +54,7 @@ jobs:
 
   Dev-Deployment:
     runs-on: ubuntu-latest
-    if: ${{ env.project_env == 'Dev' }}
+    if: ${{ inputs.project_env == 'Dev' }}
     needs: Terraform-Plan
     environment:
      name: Dev_Env
@@ -76,6 +76,7 @@ jobs:
             ls 
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
             ls
+            echo ${{ inputs.project_env }}
      
       - name: Checkout
         uses: actions/checkout@v2
@@ -103,7 +104,7 @@ jobs:
 
   Test-Deployment:
     runs-on: ubuntu-latest
-    if: ${{ env.project_env == 'Test' }}
+    if: ${{ inputs.project_env == 'Test' }}
     needs: Terraform-Plan
     environment:
      name: Test_Env
@@ -152,7 +153,7 @@ jobs:
 
   Prod-Deployment:
     runs-on: ubuntu-latest
-    if: ${{ env.project_env == 'Prod' }}
+    if: ${{ inputs.project_env == 'Prod' }}
     needs: Terraform-Plan
     environment:
      name: Prod_Env
