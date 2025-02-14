@@ -11,6 +11,7 @@ on:
 
 jobs:
   Frontend-Image-Build: 
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'New Release')
     name: 'Frontend Docker Build'
     runs-on: ubuntu-latest
     defaults:
