@@ -7,7 +7,7 @@ on:
         required: True
 
 env:
-    PROJECT_ENV: ${{ inputs.project_env }}
+    project_env: ${{ inputs.project_env }}
 
 jobs:   
   Terraform-Plan:
@@ -56,7 +56,7 @@ jobs:
     env:
       project_env: ${{ inputs.project_env }}
     runs-on: ubuntu-latest
-    if: env.PROJECT_ENV == 'Dev'
+    if: env.project_env == 'Dev'
     needs: Terraform-Plan
     environment:
      name: Dev_Env
@@ -107,7 +107,7 @@ jobs:
     env:
       project_env: ${{ inputs.project_env }}
     runs-on: ubuntu-latest
-    if: env.PROJECT_ENV == 'Test'
+    if: env.project_env == 'Test'
     needs: Terraform-Plan
     environment:
      name: Test_Env
@@ -158,7 +158,7 @@ jobs:
     env:
       project_env: ${{ inputs.project_env }}
     runs-on: ubuntu-latest
-    if: env.PROJECT_ENV == 'Prod'
+    if: env.project_env == 'Prod'
     needs: Terraform-Plan
     environment:
      name: Prod_Env
