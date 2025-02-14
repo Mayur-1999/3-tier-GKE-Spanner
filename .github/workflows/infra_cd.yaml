@@ -53,6 +53,8 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
   Dev-Deployment:
+    env:
+      project_env: ${{ inputs.project_env }}
     runs-on: ubuntu-latest
     if: env.PROJECT_ENV == 'Dev'
     needs: Terraform-Plan
@@ -102,6 +104,8 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
 
   Test-Deployment:
+    env:
+      project_env: ${{ inputs.project_env }}
     runs-on: ubuntu-latest
     if: env.PROJECT_ENV == 'Test'
     needs: Terraform-Plan
@@ -151,6 +155,8 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
 
   Prod-Deployment:
+    env:
+      project_env: ${{ inputs.project_env }}
     runs-on: ubuntu-latest
     if: env.PROJECT_ENV == 'Prod'
     needs: Terraform-Plan
