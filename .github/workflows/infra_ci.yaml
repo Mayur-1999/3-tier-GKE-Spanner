@@ -35,8 +35,8 @@ jobs:
       # - name: Echo
       #   run: echo "Creating artifact"
         
-      # - uses: actions/upload-artifact@main
-      #   name: Uploading Infrastructure Artifact
-      #   with:
-      #     name: Infrastructure-Artifacts
-      #     path: ./Infrastructure/*
+      - uses: actions/upload-artifact@main
+        name: Uploading Infrastructure Artifact
+        with:
+          name: Infrastructure-Artifacts
+          path: ./Infrastructure/*
