@@ -54,7 +54,7 @@ jobs:
 
   Dev-Deployment:
     runs-on: ubuntu-latest
-    if: ${{ inputs.project_env }} == 'Dev'
+    if: env.project_env == 'Dev'
     needs: Terraform-Plan
     environment:
      name: Dev_Env
@@ -103,7 +103,7 @@ jobs:
 
   Test-Deployment:
     runs-on: ubuntu-latest
-    if: ${{ inputs.project_env }} == 'Test'
+    if: env.project_env == 'Test'
     needs: Terraform-Plan
     environment:
      name: Test_Env
@@ -152,7 +152,7 @@ jobs:
 
   Prod-Deployment:
     runs-on: ubuntu-latest
-    if: ${{ inputs.project_env }} == 'Prod'
+    if: env.project_env == 'Prod'
     needs: Terraform-Plan
     environment:
      name: Prod_Env
