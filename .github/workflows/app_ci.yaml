@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: 
-      - dev
+      - Dev
     paths: 
       - Application/*
       - .github/workflows/app_ci.yaml

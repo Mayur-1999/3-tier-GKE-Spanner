@@ -3,7 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches: 
-      - dev
+      - Dev
+      - Test
+      - Prod
     paths: 
       - Infrastructure/*
       - .github/workflows/infra_ci.yaml

@@ -2,7 +2,9 @@ name: Generate terraform docs
 on:
   push:
     branches: 
-      - dev
+      - Dev
+      - Test 
+      - Prod
     paths:
       - ./Infrastructure
       - .github/workflows/readme.yaml
