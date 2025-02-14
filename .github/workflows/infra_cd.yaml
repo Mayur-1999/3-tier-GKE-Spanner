@@ -5,7 +5,7 @@ on:
       project_env:
         description: "Project Env - Dev, Test, Prod"
         required: True
-...
+
 env:
     project_env: ${{ inputs.project_env }}
 
