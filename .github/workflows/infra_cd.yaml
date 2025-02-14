@@ -11,7 +11,6 @@ env:
 
 jobs:   
   Terraform-Plan:
-    name: Terraform Plan
     runs-on: ubuntu-latest
     steps:    
       - name: Download Artifacts
@@ -54,7 +53,6 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
   Dev-Deployment:
-    name: Terraform Apply
     runs-on: ubuntu-latest
     if: ${{ inputs.project_env }} == 'Dev'
     needs: Build
@@ -104,7 +102,6 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
 
   Test-Deployment:
-    name: Terraform Apply
     runs-on: ubuntu-latest
     if: ${{ inputs.project_env }} == 'Test'
     needs: Build
@@ -154,7 +151,6 @@ jobs:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
 
   Prod-Deployment:
-    name: Terraform Apply
     runs-on: ubuntu-latest
     if: ${{ inputs.project_env }} == 'Prod'
     needs: Build
