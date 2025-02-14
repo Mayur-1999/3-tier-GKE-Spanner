@@ -1,11 +1,8 @@
-
 /******************************************
 	VPC configuration
  *****************************************/
 
-
 # Vpc
-
 module "usc1-vpc" {
   source                  = "../../modules/vpc"
   project_id              = var.project_id

@@ -21,6 +21,22 @@ jobs:
         output-file: TF_README.md
         output-method: inject
         git-push: "true"
+
+  Test_Readme:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Render terraform docs inside the ./Infrastructure/Env/Test/TF_README.md
+      uses: terraform-docs/gh-actions@v1.3.0
+      with:
+        working-dir: ./Infrastructure/Env/Test
+        output-file: TF_README.md
+        output-method: inject
+        git-push: "true"
+
   Prod_Readme:
     runs-on: ubuntu-latest
     steps:
@@ -32,21 +48,6 @@ jobs:
       uses: terraform-docs/gh-actions@v1.3.0
       with:
         working-dir: ./Infrastructure/Env/Prod
-        output-file: TF_README.md
-        output-method: inject
-        git-push: "true"
-
-  Modules_Readme:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
-
-    - name: Render terraform docs inside the ./Infrastructure/Env/Dev/TF_README.md
-      uses: terraform-docs/gh-actions@v1.3.0
-      with:
-        working-dir: ./Infrastructure
         output-file: TF_README.md
         output-method: inject
         git-push: "true"

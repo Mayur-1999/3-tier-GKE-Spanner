@@ -1,51 +1,19 @@
 name: 'Infrastructure CD'
 on:
- workflow_dispatch:
+  workflow_dispatch:
+    inputs:
+      project_env:
+        description: "Project Env - Dev, Test, Prod"
+        required: True
+...
+env:
+    project_env: ${{ inputs.project_env }}
 
 jobs:   
-  terraform1:
-    name: 'Terraform Bootstrap'
+  Terraform-Plan:
+    name: Terraform Plan
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
-        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/Infrastructure/Bootstrap
-
-    steps:
-
-    - name: Checkout
-      uses: actions/checkout@v2 
-      
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-  
-    - name: Terraform Init
-      run: terraform init
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        
-    - name: Terraform Validate
-      run: terraform validate
-      
-    - name: Terraform Fmt
-      run: terraform fmt
-        
-    - name: Terraform Plan
-      run: terraform plan
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}  
-          
-  terraform2:
-    name: 'Terraform INFRA'
-    runs-on: ubuntu-latest
-    steps:
-
+    steps:    
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@v8
         with:
@@ -58,7 +26,7 @@ jobs:
       - name: List Content
         run: |
             ls 
-            cd ./Infrastructure-Artifacts
+            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
             ls
      
       - name: Checkout
@@ -68,7 +36,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       # - name: Terraform Init
-      #   run: terraform init
+      #   run: terraform init -backend=false
 
       # - name: Terraform Validate
       #   run: terraform validate
@@ -76,8 +44,161 @@ jobs:
       # - name: Terraform Plan
       #   id: plan
       #   run: terraform plan 
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
       # - name: Terraform Apply
       #   run: terraform apply -auto-approve
+
       #   env:
       #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+  Dev-Deployment:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    if: ${{ inputs.project_env }} == 'Dev'
+    needs: Build
+    environment:
+     name: Dev_Env
+     url: https://github.com
+    steps: 
+      - name: Deployment Environment
+        run: echo "Dev Env Deployment"
+      - name: Download Artifacts
+        uses: dawidd6/action-download-artifact@v8
+        with:
+          workflow: infra_ci.yaml
+          github_token: ${{ github.token }}
+          repo: ${{ github.repository }}
+          name: Infrastructure-Artifacts
+          path: Infrastructure-Artifacts
+
+      - name: List Content
+        run: |
+            ls 
+            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+            ls
+     
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      # - name: Terraform Init
+      #   run: terraform init -backend=false
+
+      # - name: Terraform Validate
+      #   run: terraform validate
+
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan 
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve
+
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
+
+  Test-Deployment:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    if: ${{ inputs.project_env }} == 'Test'
+    needs: Build
+    environment:
+     name: Test_Env
+     url: https://github.com
+    steps: 
+      - name: Deployment Environment
+        run: echo "Dev Env Deployment"
+      - name: Download Artifacts
+        uses: dawidd6/action-download-artifact@v8
+        with:
+          workflow: infra_ci.yaml
+          github_token: ${{ github.token }}
+          repo: ${{ github.repository }}
+          name: Infrastructure-Artifacts
+          path: Infrastructure-Artifacts
+
+      - name: List Content
+        run: |
+            ls 
+            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+            ls
+     
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      # - name: Terraform Init
+      #   run: terraform init -backend=false
+
+      # - name: Terraform Validate
+      #   run: terraform validate
+
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan 
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve
+
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
+
+  Prod-Deployment:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    if: ${{ inputs.project_env }} == 'Prod'
+    needs: Build
+    environment:
+     name: Prod_Env
+     url: https://github.com
+    steps: 
+      - name: Deployment Environment
+        run: echo "Dev Env Deployment"
+      - name: Download Artifacts
+        uses: dawidd6/action-download-artifact@v8
+        with:
+          workflow: infra_ci.yaml
+          github_token: ${{ github.token }}
+          repo: ${{ github.repository }}
+          name: Infrastructure-Artifacts
+          path: Infrastructure-Artifacts
+
+      - name: List Content
+        run: |
+            ls 
+            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+            ls
+     
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      # - name: Terraform Init
+      #   run: terraform init -backend=false
+
+      # - name: Terraform Validate
+      #   run: terraform validate
+
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan 
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve
+
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
