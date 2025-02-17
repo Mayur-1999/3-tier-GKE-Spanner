@@ -39,7 +39,6 @@ jobs:
           then
             echo "helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER"
           else 
-          then 
             echo "Wrong input" 
           fi 
 
