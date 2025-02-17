@@ -31,15 +31,30 @@ jobs:
           echo "${{ secrets.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
-    - name: Install Helm
+    - name: Application Frontend
       run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm -y 
-          helm version
-    
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback frontend --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
+
     # # Setup gcloud CLI
     # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
     #   with:
@@ -80,14 +95,29 @@ jobs:
           echo "${{ secrets.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
-    - name: Install Helm
+    - name: Application Frontend
       run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm -y 
-          helm version
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback frontend --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
     
     # # Setup gcloud CLI
     # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
@@ -128,14 +158,29 @@ jobs:
           echo "${{ secrets.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
-    - name: Install Helm
+    - name: Application Frontend
       run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm -y 
-          helm version
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback frontend --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
     
     # # Setup gcloud CLI
     # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
@@ -156,7 +201,7 @@ jobs:
 
 
   Deploy-Application-Dev:
-    name: 'Deploy Frontend Service'
+    name: '${{ inputs.helm_command}} Frontend Service'
     needs: Verify-Deployment-Dev
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/Dev'
@@ -178,14 +223,29 @@ jobs:
           echo "${{ secrets.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
-    - name: Install Helm
+    - name: Application Frontend
       run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm -y 
-          helm version
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback frontend --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
     
     # # Setup gcloud CLI
     # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
@@ -206,7 +266,7 @@ jobs:
 
 
   Deploy-Application-Test:
-    name: 'Deploy Frontend Service'
+    name: '${{ inputs.helm_command}} Frontend Service'
     needs: Verify-Deployment-Test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/Test'
@@ -228,14 +288,29 @@ jobs:
           echo "${{ secrets.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
-    - name: Install Helm
+    - name: Application Frontend
       run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm -y 
-          helm version
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback frontend --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
     
     # # Setup gcloud CLI
     # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
@@ -255,8 +330,8 @@ jobs:
     #      helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
 
 
-  Deploy-Application-Dev:
-    name: 'Deploy Frontend Service'
+  Deploy-Application-Prod:
+    name: '${{ inputs.helm_command}} Frontend Service'
     needs: Verify-Deployment-Prod
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/Prod'
@@ -278,14 +353,29 @@ jobs:
           echo "${{ secrets.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
-    - name: Install Helm
+    - name: Application Frontend
       run: |
-          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-          sudo apt-get install apt-transport-https --yes
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm -y 
-          helm version
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback frontend --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
     
     # # Setup gcloud CLI
     # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
