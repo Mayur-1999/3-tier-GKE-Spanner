@@ -13,9 +13,12 @@ env:
     helm_command: ${{ inputs.helm_command}}
 
 jobs:
-  Verify-Deployment:
-    name: 'Verify Deployment: ${{ inputs.app_name }}'
+  Verify-Deployment-Dev:
+    name: 'Verify Dev Deployment: ${{ inputs.app_name }}'
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/Dev'
+    environment:
+     name: Dev_Env
     steps:
 
     - name: Download Artifacts
@@ -26,6 +29,11 @@ jobs:
         repo: ${{ github.repository }}
         name: Application-Artifacts
         path: Application-Artifacts
+    
+    - name: Environment
+      run: |
+          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application ${{ inputs.app_name }}
       run: |
@@ -73,10 +81,12 @@ jobs:
     #      helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
 
 
-  Application-Deployment:
-    needs: Verify-Deployment
-    name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
+  Verify-Deployment-Test:
+    name: 'Verify Test Deployment: ${{ inputs.app_name }}'
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/Test'
+    environment:
+     name: Test_Env
     steps:
 
     - name: Download Artifacts
@@ -87,6 +97,275 @@ jobs:
         repo: ${{ github.repository }}
         name: Application-Artifacts
         path: Application-Artifacts
+    
+    - name: Environment
+      run: |
+          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.GKE_CLUSTER_NAME }}"
+
+    - name: Application ${{ inputs.app_name }}
+      run: |
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Application ${{ inputs.app_name }}
+    #   run: |
+    #       echo "helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+    
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
+    
+    # # Setup gcloud CLI
+    # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    #   with:
+    #     service_account_key: ${{ secrets.GKE_SA_KEY }}
+    #     project_id: ${{ vars.PROJECT_ID }}
+    
+    # # Get the GKE credentials so we can deploy to the cluster
+    # - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+    #   with:
+    #     cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
+    #     location: ${{ vars.GKE_ZONE }}
+    #     credentials: ${{ secrets.GKE_SA_KEY }}
+
+    # - name: Deploy ${{ inputs.app_name }} Application
+    #   run: |
+    #      helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+
+
+  Verify-Deployment-Prod:
+    name: 'Verify Prod Deployment: ${{ inputs.app_name }}'
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/Prod'
+    environment:
+     name: Prod_Env
+    steps:
+
+    - name: Download Artifacts
+      uses: dawidd6/action-download-artifact@v8
+      with:
+        workflow: applications_ci.yaml
+        github_token: ${{ github.token }}
+        repo: ${{ github.repository }}
+        name: Application-Artifacts
+        path: Application-Artifacts
+    
+    - name: Environment
+      run: |
+          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.GKE_CLUSTER_NAME }}"
+
+    - name: Application ${{ inputs.app_name }}
+      run: |
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+
+    # - name: Application ${{ inputs.app_name }}
+    #   run: |
+    #       echo "helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+    
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
+    
+    # # Setup gcloud CLI
+    # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    #   with:
+    #     service_account_key: ${{ secrets.GKE_SA_KEY }}
+    #     project_id: ${{ vars.PROJECT_ID }}
+    
+    # # Get the GKE credentials so we can deploy to the cluster
+    # - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+    #   with:
+    #     cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
+    #     location: ${{ vars.GKE_ZONE }}
+    #     credentials: ${{ secrets.GKE_SA_KEY }}
+
+    # - name: Deploy ${{ inputs.app_name }} Application
+    #   run: |
+    #      helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+
+
+
+  Application-Deployment-Dev:
+    needs: Verify-Deployment-Dev
+    name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/Dev'
+    environment:
+     name: Dev_Env
+    steps:
+    - name: Download Artifacts
+      uses: dawidd6/action-download-artifact@v8
+      with:
+        workflow: applications_ci.yaml
+        github_token: ${{ github.token }}
+        repo: ${{ github.repository }}
+        name: Application-Artifacts
+        path: Application-Artifacts
+
+    - name: Environment
+      run: |
+          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.GKE_CLUSTER_NAME }}"
+
+    - name: Application ${{ inputs.app_name }}
+      run: |   
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+          
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
+    
+    # # Setup gcloud CLI
+    # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    #   with:
+    #     service_account_key: ${{ secrets.GKE_SA_KEY }}
+    #     project_id: ${{ vars.PROJECT_ID }}
+    
+    # # Get the GKE credentials so we can deploy to the cluster
+    # - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+    #   with:
+    #     cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
+    #     location: ${{ vars.GKE_ZONE }}
+    #     credentials: ${{ secrets.GKE_SA_KEY }}
+
+    # - name: Deploy ${{ inputs.app_name }} Application
+    #   run: |
+    #      helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+
+
+  Application-Deployment-Test:
+    needs: Verify-Deployment-Test
+    name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/Test'
+    environment:
+     name: Test_Env
+    steps:
+    - name: Download Artifacts
+      uses: dawidd6/action-download-artifact@v8
+      with:
+        workflow: applications_ci.yaml
+        github_token: ${{ github.token }}
+        repo: ${{ github.repository }}
+        name: Application-Artifacts
+        path: Application-Artifacts
+
+    - name: Environment
+      run: |
+          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.GKE_CLUSTER_NAME }}"
+
+    - name: Application ${{ inputs.app_name }}
+      run: |   
+          if [[ ${{ inputs.helm_command}} == "install" ]]
+          then 
+            echo "helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
+          then
+            echo "helm upgrade ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}"
+          elif [[ ${{ inputs.helm_command}} == "rollback" ]]
+          then
+            echo "helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER"
+          else 
+            echo "Wrong input" 
+          fi 
+          
+    # - name: Install Helm
+    #   run: |
+    #       curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #       sudo apt-get install apt-transport-https --yes
+    #       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #       sudo apt-get update
+    #       sudo apt-get install helm -y 
+    #       helm version
+    
+    # # Setup gcloud CLI
+    # - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    #   with:
+    #     service_account_key: ${{ secrets.GKE_SA_KEY }}
+    #     project_id: ${{ vars.PROJECT_ID }}
+    
+    # # Get the GKE credentials so we can deploy to the cluster
+    # - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+    #   with:
+    #     cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
+    #     location: ${{ vars.GKE_ZONE }}
+    #     credentials: ${{ secrets.GKE_SA_KEY }}
+
+    # - name: Deploy ${{ inputs.app_name }} Application
+    #   run: |
+    #      helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+
+  Application-Deployment-Prod:
+    needs: Verify-Deployment-Prod
+    name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/Prod'
+    environment:
+     name: Prod_Env
+    steps:
+    - name: Download Artifacts
+      uses: dawidd6/action-download-artifact@v8
+      with:
+        workflow: applications_ci.yaml
+        github_token: ${{ github.token }}
+        repo: ${{ github.repository }}
+        name: Application-Artifacts
+        path: Application-Artifacts
+
+    - name: Environment
+      run: |
+          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application ${{ inputs.app_name }}
       run: |   
