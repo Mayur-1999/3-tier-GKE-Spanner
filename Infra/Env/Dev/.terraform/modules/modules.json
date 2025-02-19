@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"app-firewall","Source":"../../modules/firewall","Dir":"../../modules/firewall"},{"Key":"nat-gateway","Source":"../../modules/nat-gateway","Dir":"../../modules/nat-gateway"},{"Key":"network","Source":"../../modules/vpc","Dir":"../../modules/vpc"},{"Key":"subnetwork","Source":"../../modules/subnet","Dir":"../../modules/subnet"}]}
