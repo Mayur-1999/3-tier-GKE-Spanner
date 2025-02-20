@@ -39,6 +39,23 @@ variable "firewall_info" {
   }
 }
 
+variable "ssh_firewall_info" {
+  type = object({
+    name          = string
+    description   = string
+    direction     = string
+    priority      = string
+    source_ranges = list(string)
+  })
+  default = {
+    name          = "ssh-firewall"
+    description   = "firewall to ssh into vm"
+    direction     = "INGRESS"
+    priority      = "1001"
+    source_ranges = ["0.0.0.0/0"]
+  }
+}
+
 variable "vpc_info" {
   type = object({
     name                            = string
