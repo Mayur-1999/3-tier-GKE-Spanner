@@ -25,10 +25,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: docker build and push
+        run: |
+            ls
+            cd online-botique-src/frontend/
+            go mod tidy
+            docker build -t gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}} .
+
+      - name: List Docker Image
+        run: |
+            docker images 
+
       - name: gcloud 
         uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
         with:
-          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          service_account_key: ${{ secrets.SA_KEY }}
           project_id: ${{ vars.PROJECT_ID }}  
 
       - run: |-
@@ -36,15 +47,7 @@ jobs:
 
       - name: docker build and push
         run: |
-            ls
-            cd online-botique-src/frontend/
-            go mod tidy
-            docker build -t gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}} .
-            #docker push gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}   
-
-      - name: List Docker Image
-        run: |
-            docker images 
+          docker push gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}   
       
       - name: Update Front end image name
         run: |
