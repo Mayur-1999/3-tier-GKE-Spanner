@@ -8,7 +8,7 @@ on:
       - Prod
     paths: 
       - Application/Helm-Charts/*
-      - .github/workflows/helm_ci.yaml
+      - .github/workflows/applications_ci.yaml
 
 jobs:
   Helm-Build: 

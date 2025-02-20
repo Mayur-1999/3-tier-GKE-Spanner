@@ -34,23 +34,21 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
-      # - name: Terraform Init
-      #   run: terraform init -backend=false
+      - name: Terraform Init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Validate
-      #   run: terraform validate
+      - name: Terraform Validate
+        run: terraform validate
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan 
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
-
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan 
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
   Dev-Deployment:
     name: Dev:Terraform Apply
@@ -85,23 +83,27 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
-      # - name: Terraform Init
-      #   run: terraform init
+      - name: Terraform Init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Validate
-      #   run: terraform validate
+      - name: Terraform Validate
+        run: terraform validate
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan 
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan 
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
 
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
 
   Test-Deployment:
     name: Test:Terraform Apply
@@ -136,23 +138,27 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
-      # - name: Terraform Init
-      #   run: terraform init
+      - name: Terraform Init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Validate
-      #   run: terraform validate
+      - name: Terraform Validate
+        run: terraform validate
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan 
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan 
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
 
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
 
   Prod-Deployment:
     name: Prod:Terraform Apply
@@ -187,20 +193,24 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
-      # - name: Terraform Init
-      #   run: terraform init
+      - name: Terraform Init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Validate
-      #   run: terraform validate
+      - name: Terraform Validate
+        run: terraform validate
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+          
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan 
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan 
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
 
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
-
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
