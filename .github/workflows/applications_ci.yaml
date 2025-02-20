@@ -26,7 +26,12 @@ jobs:
 
       - name: Creating artifact
         run: echo "Creating artifact"
-        
+
+      - name: Update Helm Chart
+        run: |
+          sed -i 's/PROJECT_ID/${{vars.PROJECT_ID}}/g'; 's/SPANNER_INSTANCE_NAME/${{vars.SPANNER_INSTANCE_NAME}}/g'; 's/SPANNER_DATABASE_NAME/${{vars.SPANNER_DATABASE_NAME}}/g' ${{ github.workspace }}/Application/Helm-Charts/cartservice/values.yaml
+          cat ${{ github.workspace }}/Application/Helm-Charts/cartservice/values.yaml
+
       - uses: actions/upload-artifact@main
         name: Uploading Application Artifact
         with:

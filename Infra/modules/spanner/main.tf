@@ -46,7 +46,7 @@ data "google_iam_policy" "admin1" {
   binding {
     role = "roles/iam.workloadIdentityUser"
     members = [
-      "serviceAccount:qwiklabs-gcp-04-5dc03957119b.svc.id.goog[default/cartservice]",
+      "serviceAccount:${var.project_id}.svc.id.goog[default/cartservice]",
     ]
   }
 }

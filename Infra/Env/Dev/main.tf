@@ -128,6 +128,7 @@ module "spanner" {
   source                  = "../../modules/spanner"
   config                  = "regional-us-central1"
   display_name            = "onlineboutique"
+  project_id              = var.project_id
   num_nodes               = 1
   database_name           = "carts"
   db-service_account-id   = "spanner-db-user-sa"
