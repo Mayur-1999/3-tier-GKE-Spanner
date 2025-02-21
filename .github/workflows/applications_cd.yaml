@@ -66,7 +66,7 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}  
 
     - name: GKE-Gcloud Auth setup
-    - run: |
+      run: |
           gcloud --quiet auth configure-docker
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
@@ -142,7 +142,7 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}  
 
     - name: GKE-Gcloud Auth setup
-    - run: |
+      run: |
           gcloud --quiet auth configure-docker
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
@@ -218,7 +218,7 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}  
 
     - name: GKE-Gcloud Auth setup
-    - run: |
+      run: |
           gcloud --quiet auth configure-docker
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
@@ -293,7 +293,7 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}  
 
     - name: GKE-Gcloud Auth setup
-    - run: |
+      run: |
           gcloud --quiet auth configure-docker
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
@@ -369,7 +369,7 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}  
 
     - name: GKE-Gcloud Auth setup
-    - run: |
+      run: |
           gcloud --quiet auth configure-docker
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
@@ -444,7 +444,7 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}  
 
     - name: GKE-Gcloud Auth setup
-    - run: |
+      run: |
           gcloud --quiet auth configure-docker
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
