@@ -28,7 +28,7 @@ jobs:
 
     - name: Environment
       run: |
-          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application Frontend
@@ -55,18 +55,19 @@ jobs:
           sudo apt-get install helm -y 
           helm version
 
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    - name: Setup Gcloud CLI
+      uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ vars.PROJECT_ID }}
-    
-    # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-      with:
-        cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
-        location: ${{ vars.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ vars.PROJECT_ID }}  
+
+    - name: GKE-Gcloud Auth setup
+    - run: |
+          gcloud --quiet auth configure-docker
+          gcloud components install gke-gcloud-auth-plugin
+          gke-gcloud-auth-plugin --version
+          gcloud config set project "${{vars.PROJECT_ID}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -103,7 +104,7 @@ jobs:
 
     - name: Environment
       run: |
-          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application Frontend
@@ -130,18 +131,19 @@ jobs:
           sudo apt-get install helm -y 
           helm version
     
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    - name: Setup Gcloud CLI
+      uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ vars.PROJECT_ID }}
-    
-    # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-      with:
-        cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
-        location: ${{ vars.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ vars.PROJECT_ID }}  
+
+    - name: GKE-Gcloud Auth setup
+    - run: |
+          gcloud --quiet auth configure-docker
+          gcloud components install gke-gcloud-auth-plugin
+          gke-gcloud-auth-plugin --version
+          gcloud config set project "${{vars.PROJECT_ID}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -177,7 +179,7 @@ jobs:
 
     - name: Environment
       run: |
-          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application Frontend
@@ -204,18 +206,19 @@ jobs:
           sudo apt-get install helm -y 
           helm version
     
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    - name: Setup Gcloud CLI
+      uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ vars.PROJECT_ID }}
-    
-    # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-      with:
-        cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
-        location: ${{ vars.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ vars.PROJECT_ID }}  
+
+    - name: GKE-Gcloud Auth setup
+    - run: |
+          gcloud --quiet auth configure-docker
+          gcloud components install gke-gcloud-auth-plugin
+          gke-gcloud-auth-plugin --version
+          gcloud config set project "${{vars.PROJECT_ID}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -253,7 +256,7 @@ jobs:
 
     - name: Environment
       run: |
-          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application Frontend
@@ -280,18 +283,19 @@ jobs:
           sudo apt-get install helm -y 
           helm version
     
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    - name: Setup Gcloud CLI
+      uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ vars.PROJECT_ID }}
-    
-    # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-      with:
-        cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
-        location: ${{ vars.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ vars.PROJECT_ID }}  
+
+    - name: GKE-Gcloud Auth setup
+    - run: |
+          gcloud --quiet auth configure-docker
+          gcloud components install gke-gcloud-auth-plugin
+          gke-gcloud-auth-plugin --version
+          gcloud config set project "${{vars.PROJECT_ID}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -329,7 +333,7 @@ jobs:
 
     - name: Environment
       run: |
-          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application Frontend
@@ -356,18 +360,19 @@ jobs:
           sudo apt-get install helm -y 
           helm version
     
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    - name: Setup Gcloud CLI
+      uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ vars.PROJECT_ID }}
-    
-    # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-      with:
-        cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
-        location: ${{ vars.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ vars.PROJECT_ID }}  
+
+    - name: GKE-Gcloud Auth setup
+    - run: |
+          gcloud --quiet auth configure-docker
+          gcloud components install gke-gcloud-auth-plugin
+          gke-gcloud-auth-plugin --version
+          gcloud config set project "${{vars.PROJECT_ID}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -405,7 +410,7 @@ jobs:
 
     - name: Environment
       run: |
-          echo "${{ secrets.PROJECT_ID }}"
+          echo "${{ vars.PROJECT_ID }}"
           echo "${{ vars.GKE_CLUSTER_NAME }}"
 
     - name: Application Frontend
@@ -432,18 +437,19 @@ jobs:
           sudo apt-get install helm -y 
           helm version
     
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+    - name: Setup Gcloud CLI
+      uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ vars.PROJECT_ID }}
-    
-    # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
-      with:
-        cluster_name: ${{ vars.GKE_CLUSTER_NAME }}
-        location: ${{ vars.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ vars.PROJECT_ID }}  
+
+    - name: GKE-Gcloud Auth setup
+    - run: |
+          gcloud --quiet auth configure-docker
+          gcloud components install gke-gcloud-auth-plugin
+          gke-gcloud-auth-plugin --version
+          gcloud config set project "${{vars.PROJECT_ID}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
