@@ -25,11 +25,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: docker build and push
+      - name: Download Dependencies
         run: |
             ls
             cd online-botique-src/frontend/
-            go mod tidy
+            go mod tidy  
+
+      - name: docker build and push
+        run: |
             docker build -t gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}} .
 
       - name: List Docker Image
