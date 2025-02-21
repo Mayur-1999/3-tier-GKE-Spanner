@@ -33,6 +33,7 @@ jobs:
 
       - name: docker build and push
         run: |
+            cd online-botique-src/frontend/
             docker build -t gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}} .
 
       - name: List Docker Image
