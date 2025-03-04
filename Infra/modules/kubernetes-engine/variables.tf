@@ -65,3 +65,4 @@ variable "enable_windows_nodes" {
 
 variable "network" {}
 variable "subnetwork" {}
+variable "service_account" {}

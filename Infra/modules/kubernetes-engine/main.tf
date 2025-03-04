@@ -41,9 +41,10 @@ resource "google_container_node_pool" "node_pool" {
   node_locations = var.cluster_info.locations
   #version        = var.node_version
   node_config {
-    machine_type = each.value.machine_type
-    preemptible  = lookup(each.value, "preemptible", false)
-    disk_size_gb = each.value.disk_size_gb
+    machine_type    = each.value.machine_type
+    preemptible     = lookup(each.value, "preemptible", false)
+    disk_size_gb    = each.value.disk_size_gb
+    service_account = var.service_account
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
     ]
@@ -77,40 +78,3 @@ resource "google_container_node_pool" "node_pool" {
   }
 }
 
-
-
-
-# # Create managed node pool
-# resource "google_container_node_pool" "cluster_nodes" {
-#   name       = var.node_pool_info.name #google_container_cluster.cluster.name
-#   version    = var.node_pool_info.version
-#   location   = var.node_pool_info.location #"asia-south2-a"
-#   cluster    = google_container_cluster.cluster.name
-#   node_count = var.node_pool_info.var.node_count # 3
-
-
-
-#   node_config {
-#     oauth_scopes = [
-#       "https://www.googleapis.com/auth/logging.write",
-#       "https://www.googleapis.com/auth/monitoring",
-#     ]
-#     disk_size_gb = var.node_pool_info.disk_size_gb # 50
-#     disk_type    = var.node_pool_info.disk_type    #"pd-ssd"
-#     machine_type = var.node_pool_info.machine_type #"n1-standard-1"
-#     #service_account = google_service_account.mysa.email
-#   }
-
-#   dynamic "autoscaling" {
-#     for_each = var.autoscaling
-#     content {
-#       min_node_count = autoscaling.value.min_node_count
-#       max_node_count = autoscaling.value.max_node_count
-#     }
-#   }
-
-#   management {
-#     auto_repair  = true
-#     auto_upgrade = false
-#   }
-# }

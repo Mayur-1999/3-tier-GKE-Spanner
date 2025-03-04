@@ -66,11 +66,12 @@ module "subnetwork" {
 # }
 
 module "gke_cluster" {
-  source       = "../../modules/kubernetes-engine"
-  project_id   = var.project_id
-  cluster_info = var.cluster_info
-  network      = module.network.network.self_link
-  subnetwork   = module.subnetwork.subnet.self_link
+  source          = "../../modules/kubernetes-engine"
+  project_id      = var.project_id
+  cluster_info    = var.cluster_info
+  network         = module.network.network.self_link
+  subnetwork      = module.subnetwork.subnet.self_link
+  service_account = var.service_account
   private_cluster_config = [{
     enable_private_endpoint = true
     enable_private_nodes    = true
