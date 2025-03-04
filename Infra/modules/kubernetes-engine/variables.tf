@@ -1,58 +1,67 @@
-variable "cluster_name" {
-  type = string
-  default = "sre-cluster"
+variable "cluster_info" {
+  type = object({
+    name                     = string
+    master_version           = string
+    location                 = string
+    remove_default_node_pool = bool
+    initial_node_count       = number
+  })
 }
 
 variable "project_id" {
   type = string
-  default = "qwiklabs-gcp-00-13a1fe6cf779"
 }
 
-variable "location" {
-  type = string
-  default = "us-central1"
+variable "private_cluster_config" {
+  default     = []
+  description = "private cluster config"
+  type = list(object({
+    enable_private_endpoint = bool
+    enable_private_nodes    = bool
+    master_ipv4_cidr_block  = string
+  }))
 }
 
-variable "machine_type" {
-  type = string
-  default = "e2-medium"
+variable "ip_allocation_policy" {
+  default     = []
+  description = "private cluster config"
+  type = list(object({
+    cluster_ipv4_cidr_block  = string
+    services_ipv4_cidr_block = string
+  }))
 }
 
-variable "disk_type" {
-  type = string
-  default = 50
+variable "node_pools" {
+  type = map(object({
+    name               = string
+    machine_type       = string
+    preemptible        = optional(bool)
+    disk_size_gb       = number
+    initial_node_count = number
+    min_node_count     = number
+    max_node_count     = number
+    labels             = map(string)
+    taints = optional(list(object({
+      key    = string
+      value  = string
+      effect = string
+    })))
+    image_type = optional(string)
+  }))
+  description = "Map of node pool configurations."
 }
 
-variable "node_pool_name" {
-  type = string
-  default = "default-pool"
+variable "node_version" {
+  type        = string
+  description = "The version of Kubernetes to use for the node pools. If not set, it defaults to the cluster's version."
+  default     = null
 }
 
-variable "node_pool_location" {
-  type = string
-  default = "us-central1"
+variable "enable_windows_nodes" {
+  type        = bool
+  description = "Enable Windows nodes support"
+  default     = false
 }
 
-variable "node_count" {
-  type = string
-  default = "2"
-}
-
-variable "initial_node_count" {
-  default = 1
-}
-
-variable "tags" {
-  type = list(string)
-  default = ["prometheus"]
-}
-
-variable "service_account" {
-  default = "terraform-sre@qwiklabs-gcp-00-13a1fe6cf779.iam.gserviceaccount.com"
-}
-
-variable "network" {
-  
-}
-variable "subnetwork" {
-}
+variable "network" {}
+variable "subnetwork" {}

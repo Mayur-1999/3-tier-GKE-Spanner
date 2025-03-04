@@ -9,18 +9,6 @@ variable "service_account" {
   type = string
 }
 
-# variable "vpc_info" {
-#   type = object({
-#     name                    = string
-#     auto_create_subnetworks = bool
-#     routing_mode            = bool
-#   })
-#   default = {
-#     name                    = "vpc"
-#     auto_create_subnetworks = false
-#     routing_mode            = false
-#   }
-# }
 
 variable "firewall_info" {
   type = object({
@@ -89,3 +77,19 @@ variable "subnet_info" {
 }
 
 
+variable "cluster_info" {
+  type = object({
+    name                     = string
+    master_version           = string
+    location                 = string
+    remove_default_node_pool = bool
+    initial_node_count       = number
+  })
+  default = {
+    name                     = "onlinebotique-cluster"
+    master_version           = "1.32.2"
+    location                 = "asia-south2-a"
+    remove_default_node_pool = true
+    initial_node_count       = 1
+  }
+}
