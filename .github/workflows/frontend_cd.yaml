@@ -69,14 +69,14 @@ jobs:
           gcloud config set project "${{vars.PROJECT_ID}}"
           gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
-    - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
+    - name: ${{ inputs.helm_command}} frontend Application
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
             helm rollback frontend --debug --dry-run VERSION_NUMBER
@@ -145,17 +145,17 @@ jobs:
           gcloud config set project "${{vars.PROJECT_ID}}"
           gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
-    - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
+    - name: ${{ inputs.helm_command}} frontend Application
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
-            helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER
+            helm rollback frontend --debug --dry-run VERSION_NUMBER
           else 
             echo "Wrong input" 
           fi 
@@ -220,17 +220,17 @@ jobs:
           gcloud config set project "${{vars.PROJECT_ID}}"
           gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
-    - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
+    - name: ${{ inputs.helm_command}} frontend Application
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade frontend --debug --dry-run Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
-            helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER
+            helm rollback frontend --debug --dry-run VERSION_NUMBER
           else 
             echo "Wrong input" 
           fi 
@@ -297,14 +297,14 @@ jobs:
           gcloud config set project "${{vars.PROJECT_ID}}"
           gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
-    - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
+    - name: ${{ inputs.helm_command}} frontend Application
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install frontend Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install frontend Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade frontend Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade frontend Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
             helm rollback frontend VERSION_NUMBER
@@ -374,17 +374,17 @@ jobs:
           gcloud config set project "${{vars.PROJECT_ID}}"
           gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
-    - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
+    - name: ${{ inputs.helm_command}} frontend Application
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install ${{ inputs.app_name }} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install frontend Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade ${{ inputs.app_name }} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade frontend Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
-            helm rollback ${{ inputs.app_name }} VERSION_NUMBER
+            helm rollback frontend VERSION_NUMBER
           else 
             echo "Wrong input" 
           fi 
@@ -451,17 +451,17 @@ jobs:
           gcloud config set project "${{vars.PROJECT_ID}}"
           gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
 
-    - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
+    - name: ${{ inputs.helm_command}} frontend Application
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install ${{ inputs.app_name }} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install frontend Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade ${{ inputs.app_name }} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade frontend Application-Artifacts/Helm-Charts/frontend
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
-            helm rollback ${{ inputs.app_name }} VERSION_NUMBER
+            helm rollback frontend VERSION_NUMBER
           else 
             echo "Wrong input" 
           fi 
