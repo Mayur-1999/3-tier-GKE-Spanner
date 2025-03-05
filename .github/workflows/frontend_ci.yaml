@@ -36,22 +36,22 @@ jobs:
         run: |
             docker images 
 
-      # - name: gcloud 
-      #   uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
-      #   with:
-      #     service_account_key: ${{ secrets.SA_KEY }}
-      #     project_id: ${{ vars.PROJECT_ID }}  
+      - name: gcloud 
+        uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+        with:
+          service_account_key: ${{ secrets.SA_KEY }}
+          project_id: ${{ vars.PROJECT_ID }}  
 
-      # - run: |-
-      #     gcloud --quiet auth configure-docker
+      - run: |-
+          gcloud --quiet auth configure-docker
 
-      # - name: docker build and push
-      #   run: |
-      #     docker push gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}   
+      - name: docker build and push
+        run: |
+          docker push gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}   
       
-      # - name: Update Front end image name
-      #   run: |
-      #     sed -i 's#frontend_image#gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}#g' ${{ github.workspace }}/Application/Helm-Charts/frontend/values.yaml
+      - name: Update Front end image name
+        run: |
+          sed -i 's#frontend_image#gcr.io/${{vars.PROJECT_ID}}/frontend:${{github.run_number}}#g' ${{ github.workspace }}/Application/Helm-Charts/frontend/values.yaml
 
       - name: Creating artifact
         run: echo "Creating artifact"
