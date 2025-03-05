@@ -73,13 +73,13 @@ jobs:
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install ${{inputs.app_name}} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade ${{ inputs.app_name }} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade ${{inputs.app_name}} --debug --dry-run Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
-            helm rollback ${{ inputs.app_name }} --debug --dry-run VERSION_NUMBER
+            helm rollback ${{inputs.app_name}} --debug --dry-run VERSION_NUMBER
           else 
             echo "Wrong input" 
           fi 
@@ -301,13 +301,13 @@ jobs:
       run: |
           if [[ ${{ inputs.helm_command}} == "install" ]]
           then 
-            helm install ${{ inputs.app_name }} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm install ${{inputs.app_name}} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
           elif [[ ${{ inputs.helm_command}} == "upgrade" ]]
           then
-            helm upgrade ${{ inputs.app_name }} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
+            helm upgrade ${{inputs.app_name}} Application-Artifacts/Helm-Charts/${{ inputs.app_name }}
           elif [[ ${{ inputs.helm_command}} == "rollback" ]]
           then
-            helm rollback ${{ inputs.app_name }} VERSION_NUMBER
+            helm rollback ${{inputs.app_name}} VERSION_NUMBER
           else 
             echo "Wrong input" 
           fi 
