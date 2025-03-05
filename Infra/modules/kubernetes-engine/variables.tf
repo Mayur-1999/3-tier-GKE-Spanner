@@ -1,10 +1,10 @@
 variable "cluster_info" {
   type = object({
     name                     = string
-    master_version           = string
     location                 = string
     remove_default_node_pool = bool
     initial_node_count       = number
+    release_channel          = string
   })
 }
 
@@ -41,11 +41,12 @@ variable "node_pools" {
     min_node_count     = number
     max_node_count     = number
     labels             = map(string)
-    taints = optional(list(object({
+    locations          = list(string)
+    taint = list(object({
       key    = string
       value  = string
       effect = string
-    })))
+    }))
     image_type = optional(string)
   }))
   description = "Map of node pool configurations."

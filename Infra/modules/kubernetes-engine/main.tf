@@ -1,9 +1,7 @@
-# Create GKE cluster with 2 nodes in our custom VPC/Subnet
 resource "google_container_cluster" "cluster" {
   project                  = var.project_id
   name                     = var.cluster_info.name
-  master_version           = var.cluster_info.master_version
-  location                 = var.cluster_info.location #"asia-south2-a"
+  location                 = var.cluster_info.location
   network                  = var.network
   subnetwork               = var.subnetwork
   remove_default_node_pool = var.cluster_info.remove_default_node_pool #true       
@@ -14,8 +12,16 @@ resource "google_container_cluster" "cluster" {
     content {
       enable_private_endpoint = private_cluster_config.value.enable_private_endpoint #true
       enable_private_nodes    = private_cluster_config.value.enable_private_nodes    #true
-      master_ipv4_cidr_block  = private_cluster_config.value.master_ipv4_cidr_block  #"10.13.0.0/28"
+      master_ipv4_cidr_block  = private_cluster_config.value.master_ipv4_cidr_block
     }
+  }
+
+  master_authorized_networks_config {
+    gcp_public_cidrs_access_enabled = false
+  }
+
+  release_channel {
+    channel = var.cluster_info.release_channel
   }
 
   dynamic "ip_allocation_policy" {
@@ -38,8 +44,7 @@ resource "google_container_node_pool" "node_pool" {
   name           = each.value.name
   location       = var.cluster_info.location
   cluster        = google_container_cluster.cluster.name
-  node_locations = var.cluster_info.locations
-  #version        = var.node_version
+  node_locations = each.value.locations
   node_config {
     machine_type    = each.value.machine_type
     preemptible     = lookup(each.value, "preemptible", false)
@@ -50,12 +55,12 @@ resource "google_container_node_pool" "node_pool" {
     ]
     labels = each.value.labels
 
-    dynamic "taints" {
-      for_each = lookup(each.value, "taints", [])
+    dynamic "taint" {
+      for_each = lookup(each.value, "taint", [])
       content {
-        key    = taints.key
-        value  = taints.value
-        effect = taints.effect
+        key    = taint.value.key
+        value  = taint.value.value
+        effect = taint.value.effect
       }
     }
 
@@ -68,7 +73,7 @@ resource "google_container_node_pool" "node_pool" {
 
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
 
   initial_node_count = each.value.initial_node_count

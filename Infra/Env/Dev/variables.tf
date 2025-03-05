@@ -71,7 +71,7 @@ variable "subnet_info" {
   })
   default = {
     name                     = "subnet"
-    ip_cidr_range            = "10.10.0.0/24"
+    ip_cidr_range            = "10.0.0.0/24"
     private_ip_google_access = true
   }
 }
@@ -80,16 +80,16 @@ variable "subnet_info" {
 variable "cluster_info" {
   type = object({
     name                     = string
-    master_version           = string
     location                 = string
     remove_default_node_pool = bool
     initial_node_count       = number
+    release_channel          = string
   })
   default = {
     name                     = "onlinebotique-cluster"
-    master_version           = "1.32.2"
-    location                 = "asia-south2-a"
+    location                 = "us-central1-a"
     remove_default_node_pool = true
     initial_node_count       = 1
+    release_channel          = "STABLE"
   }
 }
