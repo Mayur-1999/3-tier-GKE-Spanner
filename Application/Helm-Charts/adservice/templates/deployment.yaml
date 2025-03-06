@@ -12,6 +12,11 @@ spec:
       labels:
         app: {{ .Values.ad_service_name }}-{{ .Release.Revision }}
     spec:
+      tolerations:
+      - key: "os"
+        operator: "Equal"
+        value: "linux"
+        effect: "NO_SCHEDULE"
       containers:
       - env:
         - name: PORT
