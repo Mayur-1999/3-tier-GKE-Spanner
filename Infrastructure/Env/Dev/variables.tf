@@ -87,7 +87,7 @@ variable "cluster_info" {
   })
   default = {
     name                     = "onlinebotique-cluster"
-    location                 = "us-central1-a"
+    location                 = "us-east1-b"
     remove_default_node_pool = true
     initial_node_count       = 1
     release_channel          = "STABLE"
