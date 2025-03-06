@@ -58,5 +58,5 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.email_service_name }}-{{ .Release.Revision }}
+      serviceAccountName: {{ .Values.email_service_name }}
       terminationGracePeriodSeconds: 5

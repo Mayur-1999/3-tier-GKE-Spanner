@@ -57,4 +57,4 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: {{ .Values.shipping_service_name }}-{{ .Release.Revision }}
+      serviceAccountName: {{ .Values.shipping_service_name }}
