@@ -15,7 +15,7 @@ env:
 jobs:
   Verify-Deployment-Dev:
     name: 'Verify Dev Deployment: ${{ inputs.app_name }}'
-    runs-on: self-hosted-runner
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -94,7 +94,7 @@ jobs:
 
   Verify-Deployment-Test:
     name: 'Verify Test Deployment: ${{ inputs.app_name }}'
-    runs-on: self-hosted-runner
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -173,7 +173,7 @@ jobs:
 
   Verify-Deployment-Prod:
     name: 'Verify Prod Deployment: ${{ inputs.app_name }}'
-    runs-on: self-hosted-runner
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -252,7 +252,7 @@ jobs:
   Application-Deployment-Dev:
     needs: Verify-Deployment-Dev
     name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
-    runs-on: self-hosted-runner
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -331,7 +331,7 @@ jobs:
   Application-Deployment-Test:
     needs: Verify-Deployment-Test
     name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
-    runs-on: self-hosted-runner
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -409,7 +409,7 @@ jobs:
   Application-Deployment-Prod:
     needs: Verify-Deployment-Prod
     name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
-    runs-on: self-hosted-runner
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
