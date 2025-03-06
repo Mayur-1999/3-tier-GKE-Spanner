@@ -6,7 +6,7 @@ on:
       - Dev
       - Test
       - Prod
-    paths: 
+    paths:
       - Infrastructure/*
       - .github/workflows/infra_ci.yaml
 jobs:
