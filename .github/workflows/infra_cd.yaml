@@ -31,28 +31,25 @@ jobs:
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
             ls
      
-      # - name: Checkout
-      #   uses: actions/checkout@v2
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        run: |
-            pwd
-            ls
-            terraform init
+        run: terraform init
+        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
       - name: Terraform Plan
         id: plan
         run: terraform plan 
+        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
@@ -94,23 +91,26 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
       - name: Terraform Plan
         id: plan
         run: terraform plan 
+        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-
+        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
 
