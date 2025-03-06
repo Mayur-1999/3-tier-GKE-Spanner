@@ -40,5 +40,4 @@ resource "google_compute_instance" "vm" {
     email  = "${var.project_id}@${var.project_id}.iam.gserviceaccount.com"
     scopes = ["cloud-platform"]
   }
-  metadata_startup_script = "./script.sh"
 }

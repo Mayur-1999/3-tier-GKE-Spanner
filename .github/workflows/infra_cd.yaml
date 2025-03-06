@@ -11,7 +11,7 @@ env:
 
 jobs:   
   Terraform-Plan:
-    runs-on: self-hosted-runner
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
@@ -55,7 +55,7 @@ jobs:
 
   Dev-Deployment:
     name: Dev:Terraform Apply
-    runs-on: self-hosted-runner
+    runs-on: ubuntu-latest 
     defaults:
       run:
         shell: bash
@@ -113,7 +113,7 @@ jobs:
 
   Test-Deployment:
     name: Test:Terraform Apply
-    runs-on: self-hosted-runner
+    runs-on: ubuntu-latest 
     defaults:
       run:
         shell: bash
@@ -171,7 +171,7 @@ jobs:
 
   Prod-Deployment:
     name: Prod:Terraform Apply
-    runs-on: self-hosted-runner
+    runs-on: ubuntu-latest 
     defaults:
       run:
         shell: bash
