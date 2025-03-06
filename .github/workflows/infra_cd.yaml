@@ -67,6 +67,7 @@ jobs:
     steps: 
       - name: Deployment Environment
         run: echo "Dev Env Deployment"
+        
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@v8
         with:
@@ -82,9 +83,6 @@ jobs:
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
             ls
             echo ${{ inputs.project_env }}
-     
-      - name: Checkout
-        uses: actions/checkout@v2
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
