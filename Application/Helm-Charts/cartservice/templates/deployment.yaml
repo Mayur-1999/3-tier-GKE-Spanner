@@ -13,6 +13,11 @@ spec:
         app: {{ .Values.cart_service_name }}-{{ .Release.Revision }}
     spec:
       containers:
+      tolerations:
+      - key: "os"
+        operator: "Equal"
+        value: "linux"
+        effect: "NoSchedule"      
       - env:
         - name: SPANNER_CONNECTION_STRING
           value: {{ .Values.spanner_connection_string }}

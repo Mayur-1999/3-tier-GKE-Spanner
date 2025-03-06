@@ -13,6 +13,11 @@ spec:
         app: {{ .Values.email_service_name }}-{{ .Release.Revision }}
     spec:
       containers:
+      tolerations:
+      - key: "os"
+        operator: "Equal"
+        value: "linux"
+        effect: "NoSchedule"      
       - env:
         - name: PORT
           value: "8080"
