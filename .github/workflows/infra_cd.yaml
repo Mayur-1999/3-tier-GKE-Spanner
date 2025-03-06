@@ -31,14 +31,17 @@ jobs:
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
             ls
      
-      - name: Checkout
-        uses: actions/checkout@v2
+      # - name: Checkout
+      #   uses: actions/checkout@v2
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+            pwd
+            ls
+            terraform init
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
