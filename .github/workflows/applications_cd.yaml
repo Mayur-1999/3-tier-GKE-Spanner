@@ -15,7 +15,10 @@ env:
 jobs:
   Verify-Deployment-Dev:
     name: 'Verify Dev Deployment: ${{ inputs.app_name }}'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: github.ref == 'refs/heads/Dev'
     environment:
      name: Dev_Env
@@ -91,7 +94,10 @@ jobs:
 
   Verify-Deployment-Test:
     name: 'Verify Test Deployment: ${{ inputs.app_name }}'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: github.ref == 'refs/heads/Test'
     environment:
      name: Test_Env
@@ -167,7 +173,10 @@ jobs:
 
   Verify-Deployment-Prod:
     name: 'Verify Prod Deployment: ${{ inputs.app_name }}'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: github.ref == 'refs/heads/Prod'
     environment:
      name: Prod_Env
@@ -243,7 +252,10 @@ jobs:
   Application-Deployment-Dev:
     needs: Verify-Deployment-Dev
     name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: github.ref == 'refs/heads/Dev'
     environment:
      name: Dev_Env
@@ -319,7 +331,10 @@ jobs:
   Application-Deployment-Test:
     needs: Verify-Deployment-Test
     name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: github.ref == 'refs/heads/Test'
     environment:
      name: Test_Env
@@ -394,7 +409,10 @@ jobs:
   Application-Deployment-Prod:
     needs: Verify-Deployment-Prod
     name: '${{ inputs.helm_command }}: ${{ inputs.app_name }}'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: github.ref == 'refs/heads/Prod'
     environment:
      name: Prod_Env

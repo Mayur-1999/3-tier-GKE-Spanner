@@ -11,7 +11,10 @@ env:
 
 jobs:   
   Terraform-Plan:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     steps:    
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@v8
@@ -52,7 +55,10 @@ jobs:
 
   Dev-Deployment:
     name: Dev:Terraform Apply
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: ${{ inputs.project_env == 'Dev' }}
     needs: Terraform-Plan
     environment:
@@ -107,7 +113,10 @@ jobs:
 
   Test-Deployment:
     name: Test:Terraform Apply
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: ${{ inputs.project_env == 'Test' }}
     needs: Terraform-Plan
     environment:
@@ -162,7 +171,10 @@ jobs:
 
   Prod-Deployment:
     name: Prod:Terraform Apply
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-runner
+    defaults:
+      run:
+        shell: bash
     if: ${{ inputs.project_env == 'Prod' }}
     needs: Terraform-Plan
     environment:
