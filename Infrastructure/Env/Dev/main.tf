@@ -53,7 +53,7 @@ module "nat-gateway" {
 
 module "spanner" {
   source                  = "../../modules/spanner"
-  config                  = "regional-us-central1"
+  config                  = "regional-us-east1"
   display_name            = "onlineboutique"
   project_id              = var.project_id
   num_nodes               = 1
@@ -91,7 +91,7 @@ module "gke_cluster" {
       initial_node_count = 2
       min_node_count     = 1
       max_node_count     = 4
-      locations          = ["us-central1-a", "us-central1-b"]
+      locations          = ["us-east1-b", "us-east1-c"]
       labels             = { os = "linux" }
       taint = [
         {
