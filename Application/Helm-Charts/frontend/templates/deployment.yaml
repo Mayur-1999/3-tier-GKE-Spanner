@@ -19,12 +19,12 @@ spec:
       labels:
         app: {{ .Values.frontend_service_name }}-{{ .Release.Revision }}
     spec:
-      containers:
       tolerations:
       - key: "os"
         operator: "Equal"
         value: "linux"
-        effect: "NoSchedule"      
+        effect: "NoSchedule"     
+      containers:  
       - env:
         - name: PORT
           value: "8080"
