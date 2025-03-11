@@ -5,7 +5,7 @@ on:
     branches: 
       - Dev
     paths:
-      - Infrastructure/*
+      - Infrastructure/Env/Dev/*
       - .github/workflows/infra_ci.yaml
 jobs:
   Infrastructure-Artifact:
