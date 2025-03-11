@@ -51,7 +51,7 @@ This project demonstrates the end-to-end automation of a robust, cloud-native ap
 | Variables | Description | Value|
 |-----------|-------------|------|
 | GKE_CLUSTER_NAME | GKE CLuster name for application deployment | `N/A` |
-| GKE_ZONE | GKE CLuster Zone | `us-central1-a` |
+| GKE_ZONE | GKE CLuster Zone | `us-east1-b` |
 | PROJECT_ID | Project ID of the GCP project in which GKE Cluster is deployed | `N/A` |
 
 
@@ -94,7 +94,7 @@ resource "google_compute_instance" "github-runner" {
   name         = "self-hosted-runner"
   project      = var.project_id
   machine_type = "e2-medium"
-  zone         = "us-central1-a"
+  zone         = "us-east1-a"
   tags         = ["self-hosted-runner"]
   boot_disk {
     initialize_params {
@@ -169,7 +169,7 @@ tar xzf ./actions-runner-linux-x64-2.322.0.tar.gz
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | project_id         | GCP Project ID | `string` | "qwiklabs-gcp-02-a83ac4580055" |
-| region             | Region to deploy GCP Services | `string` | "us-central1" | 
+| region             | Region to deploy GCP Services | `string` | "us-east1" | 
 | service_account    | Service account for Kubernetes Engine | `string` | "qwiklabs-gcp-02-a83ac4580055@qwiklabs-gcp-02-a83ac4580055.iam.gserviceaccount.com" | 
 | create_vpc         | Create Network/VPC | `bool` | true       | 
 | create_subnet      | Create subenetwork within the VPC| `bool` | true       |

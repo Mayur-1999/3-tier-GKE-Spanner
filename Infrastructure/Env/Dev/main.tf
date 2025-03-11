@@ -115,6 +115,6 @@ module "gke_cluster" {
 module "reserved_external_frontend_ip" {
   count   = var.create_reserve-ip ? 1 : 0
   source  = "../../modules/reserve_ip"
-  name    = var.ip_name
+  name    = "frontend-ext-lb"
   project = var.project_id
 }

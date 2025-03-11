@@ -11,7 +11,7 @@ variable "state_bucket_name" {
 resource "google_storage_bucket" "statefile-bucket" {
   project                     = var.project_id
   name                        = var.state_bucket_name
-  location                    = "us-central1"
+  location                    = "us-east1"
   force_destroy               = false
   uniform_bucket_level_access = true
   versioning {
@@ -23,7 +23,7 @@ resource "google_compute_instance" "github-runner" {
   name         = "self-hosted-runner"
   project      = var.project_id
   machine_type = "e2-medium"
-  zone         = "us-central1-a"
+  zone         = "us-east1-b"
   tags         = ["self-hosted-runner"]
   boot_disk {
     initialize_params {
