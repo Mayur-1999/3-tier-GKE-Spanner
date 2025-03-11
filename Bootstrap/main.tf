@@ -19,20 +19,22 @@ resource "google_storage_bucket" "statefile-bucket" {
   }
 }
 
-resource "google_compute_instance" "vm" {
+resource "google_compute_instance" "github-runner" {
   name         = "self-hosted-runner"
   project      = var.project_id
-  machine_type = "n1-standard-1"
+  machine_type = "e2-medium"
   zone         = "us-central1-a"
-
+  tags         = ["self-hosted-runner"]
   boot_disk {
     initialize_params {
-      image = "ubuntu-minimal-2210-kinetic-amd64-v20230126"
+      image = "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20250213"
+      size  = 10
+      type  = "pd-balanced"
     }
   }
 
   network_interface {
-    network = "default"
+    subnetwork = "projects/${var.project_id}/regions/us-east1/subnetworks/subnet"
     access_config {}
   }
 
@@ -40,4 +42,25 @@ resource "google_compute_instance" "vm" {
     email  = "${var.project_id}@${var.project_id}.iam.gserviceaccount.com"
     scopes = ["cloud-platform"]
   }
+}
+
+resource "google_compute_firewall" "runner-ssh-firewall" {
+  project       = var.project_id
+  description   = "firewall to ssh into github runner linux machine"
+  name          = "runner-ssh-firewall"
+  network       = "vpc"
+  direction     = "INGRESS"
+  source_ranges = "0.0.0.0/0"
+  target_tags   = "self-hosted-runner"
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "80", "8080"]
+  }
+
+  source_tags = ["web"]
 }

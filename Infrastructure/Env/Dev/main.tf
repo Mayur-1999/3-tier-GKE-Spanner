@@ -1,10 +1,12 @@
 module "network" {
+  count      = var.create_vpc ? 1 : 0
   source     = "../../modules/vpc"
   project_id = var.project_id
   vpc_info   = var.vpc_info
 }
 
 module "subnetwork" {
+  count       = var.create_subnet ? 1 : 0
   source      = "../../modules/subnet"
   project_id  = var.project_id
   region      = var.region
@@ -16,6 +18,7 @@ module "subnetwork" {
 }
 
 module "app-firewall" {
+  count         = var.create_firewall ? 1 : 0
   source        = "../../modules/firewall"
   project_id    = var.project_id
   network       = module.network.network.self_link
@@ -30,6 +33,7 @@ module "app-firewall" {
 }
 
 module "ssh-firewall" {
+  count         = var.create_firewall ? 1 : 0
   source        = "../../modules/firewall"
   project_id    = var.project_id
   network       = module.network.network.self_link
@@ -44,6 +48,7 @@ module "ssh-firewall" {
 }
 
 module "nat-gateway" {
+  count        = var.create_nat-gateway ? 1 : 0
   source       = "../../modules/nat-gateway"
   project_id   = var.project_id
   region       = var.region
@@ -52,6 +57,7 @@ module "nat-gateway" {
 }
 
 module "spanner" {
+  count                   = var.create_spanner ? 1 : 0
   source                  = "../../modules/spanner"
   config                  = "regional-us-east1"
   display_name            = "onlineboutique"
@@ -66,6 +72,7 @@ module "spanner" {
 }
 
 module "gke_cluster" {
+  count           = var.create_cluster ? 1 : 0
   source          = "../../modules/kubernetes-engine"
   project_id      = var.project_id
   cluster_info    = var.cluster_info
@@ -102,4 +109,11 @@ module "gke_cluster" {
       ]
     }
   }
+}
+
+module "reserved_external_frontend_ip" {
+  count   = var.create_reserve-ip ? 1 : 0
+  source  = "../../modules/reserve_ip"
+  name    = var.ip_name
+  project = var.project_id
 }

@@ -3,12 +3,48 @@ variable "region" {
 }
 
 variable "project_id" {
+  type = string
 }
 
 variable "service_account" {
   type = string
 }
 
+variable "create_vpc" {
+  type = bool
+}
+
+variable "create_subnet" {
+  type = bool
+}
+
+variable "create_nat-gateway" {
+  type = bool
+}
+
+variable "create_firewall" {
+  type = bool
+}
+
+variable "create_cluster" {
+  type = bool
+}
+
+variable "create_spanner" {
+  type = bool
+}
+
+variable "create_cloud-armor" {
+  type = bool
+}
+
+variable "create_lb" {
+  type = bool
+}
+
+variable "create_reserve-ip" {
+  type = bool
+}
 
 variable "firewall_info" {
   type = object({
@@ -75,7 +111,6 @@ variable "subnet_info" {
     private_ip_google_access = true
   }
 }
-
 
 variable "cluster_info" {
   type = object({

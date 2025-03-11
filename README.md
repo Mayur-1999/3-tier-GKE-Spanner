@@ -3,6 +3,10 @@
 <img width="100%" alt="image001" src="https://github.com/user-attachments/assets/bedf2526-4174-4c53-85ce-447390fa34ca" />
 </div>
 
+
+
+
+# Pipelines:
 | Terraform Readme Update Pipeline Status |
 | --------------- |
 | [![Generate terraform docs](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/readme.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/readme.yaml) |
@@ -17,6 +21,12 @@
 |[![Frontend Service Build](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_ci.yaml)|
 |[![Frontend Service Deploy](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_cd.yaml)|
 
+| Other Application Pipeline Status |
+| --------------- |
+| [![Helm Build](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/applications_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/applications_ci.yaml) |
+| [![Helm Deploy](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/applications_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/applications_cd.yaml) |
+
+
 
 ## Repo Secrets
 | Secret | Description | Value|
@@ -28,6 +38,7 @@
 |-----------|-------------|------|
 | SPANNER_DATABASE_NAME | Name of the database | `carts` |
 | SPANNER_INSTANCE_NAME | Name of the spanner instance | `onlinebotique` |
+| PROJECT_ID | Project ID | `N/A` |
 
 ## Environment Secrets
 | Secret | Description | Value|
@@ -38,9 +49,9 @@
 ## Environment Variables
 | Variables | Description | Value|
 |-----------|-------------|------|
-| GKE_CLUSTER_NAME | GKE CLuster name for application deployment | `cluster-name` |
+| GKE_CLUSTER_NAME | GKE CLuster name for application deployment | `N/A` |
 | GKE_ZONE | GKE CLuster Zone | `us-central1-a` |
-| PROJECT_ID | Project ID of the GCP project in which GKE Cluster is deployed | `project-id` |
+| PROJECT_ID | Project ID of the GCP project in which GKE Cluster is deployed | `N/A` |
 
 
 ## Create GKE service connection 
@@ -68,4 +79,87 @@ gcloud projects add-iam-policy-binding $GKE_PROJECT \
   --role=roles/container.clusterViewer
 ```
 
-## Pipelines 
+## Self-Hosted-GitHub-Runner
+-- Note: Self hosted github runner is used in kubernetes deployment workflows as its a private cluster.
+
+* create Linux VM & associated firewall 
+```
+variable "project_id" {
+  type    = string
+  default = "value"
+}
+
+resource "google_compute_instance" "github-runner" {
+  name         = "self-hosted-runner"
+  project      = var.project_id
+  machine_type = "e2-medium"
+  zone         = "us-central1-a"
+  tags         = ["self-hosted-runner"]
+  boot_disk {
+    initialize_params {
+      image = "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20250213"
+      size  = 10
+      type  = "pd-balanced"
+    }
+  }
+
+  network_interface {
+    subnetwork = "projects/${var.project_id}/regions/us-east1/subnetworks/subnet"
+    access_config {}
+  }
+
+  service_account {
+    email  = "${var.project_id}@${var.project_id}.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }
+}
+
+resource "google_compute_firewall" "runner-ssh-firewall" {
+  project       = var.project_id
+  description   = "firewall to ssh into github runner linux machine"
+  name          = "runner-ssh-firewall"
+  network       = "vpc"
+  direction     = "INGRESS"
+  source_ranges = "0.0.0.0/0"
+  target_tags   = "self-hosted-runner"
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "80", "8080"]
+  }
+
+  source_tags = ["web"]
+}
+
+```
+
+* Install Kubectl, gloud & configure the kubernetes cluster
+```
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates gnupg curl
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+sudo apt-get update
+sudo apt-get install google-cloud-cli -y
+grep -rhE ^deb /etc/apt/sources.list* | grep "cloud-sdk"
+sudo apt-get update
+sudo apt-get install -y kubectl
+```
+
+
+* Add the machine as github runner.
+```
+mkdir actions-runner && cd actions-runner
+curl -o actions-runner-linux-x64-2.322.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.322.0/actions-runner-linux-x64-2.322.0.tar.gz
+echo "b13b784808359f31bc79b08a191f5f83757852957dd8fe3dbfcc38202ccf5768  actions-runner-linux-x64-2.322.0.tar.gz" | shasum -a 256 -c
+tar xzf ./actions-runner-linux-x64-2.322.0.tar.gz
+
+
+# runner configurations
+./config.sh --url REPO_URL --token TOKEN
+./run.sh
+```

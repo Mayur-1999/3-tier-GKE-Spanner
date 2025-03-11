@@ -1,3 +1,12 @@
-project_id      = "qwiklabs-gcp-02-a83ac4580055"
-region          = "us-east1" 
-service_account = "qwiklabs-gcp-02-a83ac4580055@qwiklabs-gcp-02-a83ac4580055.iam.gserviceaccount.com"
+project_id         = "qwiklabs-gcp-02-a83ac4580055"
+region             = "us-east1"
+service_account    = "qwiklabs-gcp-02-a83ac4580055@qwiklabs-gcp-02-a83ac4580055.iam.gserviceaccount.com"
+create_vpc         = true
+create_subnet      = true
+create_firewall    = true
+create_nat-gateway = true
+create_cluster     = true
+create_spanner     = true
+create_reserve-ip  = true
+create_cloud-armor = false
+create_lb          = false
