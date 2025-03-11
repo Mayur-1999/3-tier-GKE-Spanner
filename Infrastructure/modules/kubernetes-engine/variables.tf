@@ -1,7 +1,6 @@
 variable "cluster_info" {
   type = object({
     name                     = string
-    location                 = string
     remove_default_node_pool = bool
     initial_node_count       = number
     release_channel          = string
@@ -11,6 +10,8 @@ variable "cluster_info" {
 variable "project_id" {
   type = string
 }
+
+variable "zone" {}
 
 variable "private_cluster_config" {
   default     = []

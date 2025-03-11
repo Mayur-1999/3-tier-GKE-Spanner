@@ -59,7 +59,7 @@ module "nat-gateway" {
 module "spanner" {
   count                   = var.create_spanner ? 1 : 0
   source                  = "../../modules/spanner"
-  config                  = "regional-us-east1"
+  config                  = "regional-${var.region}"
   display_name            = "onlineboutique"
   project_id              = var.project_id
   num_nodes               = 1
@@ -75,6 +75,7 @@ module "gke_cluster" {
   count           = var.create_cluster ? 1 : 0
   source          = "../../modules/kubernetes-engine"
   project_id      = var.project_id
+  zone            = var.zone
   cluster_info    = var.cluster_info
   network         = module.network.network.self_link
   subnetwork      = module.subnetwork.subnet.self_link

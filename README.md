@@ -3,7 +3,8 @@
 <img width="100%" alt="image001" src="https://github.com/user-attachments/assets/bedf2526-4174-4c53-85ce-447390fa34ca" />
 </div>
 
-
+# About:
+This project demonstrates the end-to-end automation of a robust, cloud-native application deployment on Google Cloud Platform (GCP). A three-tier architecture was implemented, featuring a private Google Kubernetes Engine (GKE) cluster for hosting an online boutique application and Google Cloud Spanner as the backend database. The entire infrastructure provisioning was automated using Terraform, with continuous integration (CI) facilitated by GitHub Actions. Application deployments to the GKE cluster were also automated using Helm and GitHub Actions, leveraging a self-hosted GitHub runner. This project showcases a fully automated, scalable, and secure application deployment pipeline on GCP.
 
 
 # Pipelines:
@@ -163,3 +164,19 @@ tar xzf ./actions-runner-linux-x64-2.322.0.tar.gz
 ./config.sh --url REPO_URL --token TOKEN
 ./run.sh
 ```
+
+## Terraform Input ([terraform.tfvars](https://github.com/Mayur-1999/3-tier-GKE-Spanner/blob/Dev/Infrastructure/Env/Dev/terraform.tfvars))
+| Name | Description | Type | Default |
+|------|-------------|------|---------|
+| project_id         | GCP Project ID | `string` | "qwiklabs-gcp-02-a83ac4580055" |
+| region             | Region to deploy GCP Services | `string` | "us-central1" | 
+| service_account    | Service account for Kubernetes Engine | `string` | "qwiklabs-gcp-02-a83ac4580055@qwiklabs-gcp-02-a83ac4580055.iam.gserviceaccount.com" | 
+| create_vpc         | Create Network/VPC | `bool` | true       | 
+| create_subnet      | Create subenetwork within the VPC| `bool` | true       |
+| create_firewall    | Create firewalls for the VPC | `bool` | true       |
+| create_nat-gateway | Create Network Address Translation Gateway | `bool` | true       |
+| create_cluster     | Create a private kubernetes cluster within the Network with the specified ranges | `bool` | true       |
+| create_spanner     | Create a spanner database | `bool` | true       |
+| create_reserve-ip  | Reserve IP for External Load Balancer | `bool` | true       |
+| create_cloud-armor | Create Cloud Armor rule for External Load Balancer| `bool` | false      |
+| create_lb          | Create Loadbalancer | `bool` | false      | 

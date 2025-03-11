@@ -6,6 +6,8 @@ variable "project_id" {
   type = string
 }
 
+variable "zone" {}
+
 variable "service_account" {
   type = string
 }
@@ -115,14 +117,12 @@ variable "subnet_info" {
 variable "cluster_info" {
   type = object({
     name                     = string
-    location                 = string
     remove_default_node_pool = bool
     initial_node_count       = number
     release_channel          = string
   })
   default = {
     name                     = "onlinebotique-cluster"
-    location                 = "us-east1-b"
     remove_default_node_pool = true
     initial_node_count       = 1
     release_channel          = "STABLE"
