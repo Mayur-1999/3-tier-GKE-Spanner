@@ -7,8 +7,8 @@ on:
       - Test
       - Prod
     paths: 
-      - Application/Helm-Charts/frontend/*
-      - Application/online-botique-src/frontend/*
+      - Application/Helm-Charts/frontend/**
+      - Application/online-botique-src/frontend/**
       - .github/workflows/frontend_ci.yaml
 
 jobs:

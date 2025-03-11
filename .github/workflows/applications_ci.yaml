@@ -7,7 +7,7 @@ on:
       - Test
       - Prod
     paths: 
-      - Application/Helm-Charts/*
+      - Application/Helm-Charts/**
       - .github/workflows/applications_ci.yaml
 
 jobs:
