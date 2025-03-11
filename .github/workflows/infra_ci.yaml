@@ -4,6 +4,8 @@ on:
   push:
     branches: 
       - Dev
+      - Test
+      - Prod
     paths:
       - Infrastructure/**
       - .github/workflows/infra_ci.yaml
