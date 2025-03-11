@@ -165,12 +165,13 @@ tar xzf ./actions-runner-linux-x64-2.322.0.tar.gz
 ./run.sh
 ```
 
-## Terraform Input ([terraform.tfvars](https://github.com/Mayur-1999/3-tier-GKE-Spanner/blob/Dev/Infrastructure/Env/Dev/terraform.tfvars))
+# Terraform Input ([terraform.tfvars](https://github.com/Mayur-1999/3-tier-GKE-Spanner/blob/Dev/Infrastructure/Env/Dev/terraform.tfvars))
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | project_id         | GCP Project ID | `string` | "qwiklabs-gcp-02-a83ac4580055" |
 | region             | Region to deploy GCP Services | `string` | "us-east1" | 
 | service_account    | Service account for Kubernetes Engine | `string` | "qwiklabs-gcp-02-a83ac4580055@qwiklabs-gcp-02-a83ac4580055.iam.gserviceaccount.com" | 
+| backend_bucket     | Name of Backend Bucket to store terraform state file | `string` | "tf-state-bkt-001" |
 | create_vpc         | Create Network/VPC | `bool` | true       | 
 | create_subnet      | Create subenetwork within the VPC| `bool` | true       |
 | create_firewall    | Create firewalls for the VPC | `bool` | true       |

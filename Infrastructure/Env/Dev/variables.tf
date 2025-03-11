@@ -6,6 +6,10 @@ variable "project_id" {
   type = string
 }
 
+variable "backend_bucket" {
+  type = string
+}
+
 variable "zone" {}
 
 variable "service_account" {
