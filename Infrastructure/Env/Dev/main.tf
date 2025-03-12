@@ -78,7 +78,7 @@ module "gke_cluster" {
   zone            = var.zone
   cluster_info    = var.cluster_info
   network         = module.network[0].network
-  subnetwork      = module.subnetwork.subnet.self_link
+  subnetwork      = module.subnetwork[0].subnet
   service_account = var.service_account
   private_cluster_config = [{
     enable_private_endpoint = true
