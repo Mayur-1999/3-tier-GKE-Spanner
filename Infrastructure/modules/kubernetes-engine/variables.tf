@@ -11,7 +11,7 @@ variable "project_id" {
   type = string
 }
 
-variable "zone" {}
+variable "region" {}
 
 variable "private_cluster_config" {
   default     = []

@@ -75,7 +75,7 @@ module "gke_cluster" {
   count           = var.create_cluster ? 1 : 0
   source          = "../../modules/kubernetes-engine"
   project_id      = var.project_id
-  zone            = var.zone
+  region          = var.region
   cluster_info    = var.cluster_info
   network         = module.network[0].network
   subnetwork      = module.subnetwork[0].subnet

@@ -1,7 +1,7 @@
 resource "google_container_cluster" "cluster" {
   project                  = var.project_id
   name                     = var.cluster_info.name
-  location                 = var.zone
+  location                 = var.region
   network                  = var.network
   subnetwork               = var.subnetwork
   remove_default_node_pool = var.cluster_info.remove_default_node_pool #true       
@@ -42,7 +42,7 @@ resource "google_container_cluster" "cluster" {
 resource "google_container_node_pool" "node_pool" {
   for_each       = var.node_pools
   name           = each.value.name
-  location       = var.zone
+  location       = var.region
   cluster        = google_container_cluster.cluster.name
   node_locations = each.value.locations
   node_config {
