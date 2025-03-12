@@ -99,7 +99,7 @@ module "gke_cluster" {
       initial_node_count = 2
       min_node_count     = 1
       max_node_count     = 4
-      locations          = ["us-central1-a", "us-central1-b"]
+      locations          = ["${var.zone}"]
       labels             = { os = "linux" }
       taint = [
         {
