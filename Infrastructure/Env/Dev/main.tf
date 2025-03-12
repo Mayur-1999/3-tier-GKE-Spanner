@@ -113,8 +113,8 @@ module "gke_cluster" {
 }
 
 module "reserved_external_frontend_ip" {
-  count   = var.create_reserve-ip ? 1 : 0
-  source  = "../../modules/reserve_ip"
-  name    = "frontend-ext-lb"
-  project = var.project_id
+  count      = var.create_reserve-ip ? 1 : 0
+  source     = "../../modules/reserve-ip"
+  ip_name    = "frontend-external-ip"
+  project_id = var.project_id
 }
