@@ -1,17 +1,28 @@
 variable "project_id" {
   type    = string
-  default = "value"
+  default = "qwiklabs-gcp-01-d961d1828cf4"
 }
 
 variable "state_bucket_name" {
   type    = string
-  default = "tf-state-bkt-001"
+  default = "tf-state-bkt-002"
+}
+
+variable "region" {
+  type    = string
+  default = "us-central1"
+}
+
+variable "zone" {
+  type    = string
+  default = "us-central1-a"
 }
 
 resource "google_storage_bucket" "statefile-bucket" {
+  count                       = 1
   project                     = var.project_id
   name                        = var.state_bucket_name
-  location                    = "us-east1"
+  location                    = var.region
   force_destroy               = false
   uniform_bucket_level_access = true
   versioning {
@@ -20,10 +31,11 @@ resource "google_storage_bucket" "statefile-bucket" {
 }
 
 resource "google_compute_instance" "github-runner" {
+  count        = 0
   name         = "self-hosted-runner"
   project      = var.project_id
   machine_type = "e2-medium"
-  zone         = "us-east1-b"
+  zone         = var.zone
   tags         = ["self-hosted-runner"]
   boot_disk {
     initialize_params {
@@ -45,13 +57,14 @@ resource "google_compute_instance" "github-runner" {
 }
 
 resource "google_compute_firewall" "runner-ssh-firewall" {
+  count         = 0
   project       = var.project_id
   description   = "firewall to ssh into github runner linux machine"
   name          = "runner-ssh-firewall"
   network       = "vpc"
   direction     = "INGRESS"
-  source_ranges = "0.0.0.0/0"
-  target_tags   = "self-hosted-runner"
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["self-hosted-runner"]
 
   allow {
     protocol = "icmp"

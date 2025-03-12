@@ -1,8 +1,8 @@
-project_id         = "qwiklabs-gcp-02-a83ac4580055"
-region             = "us-east1"
-zone               = "us-east1-b"
-service_account    = "qwiklabs-gcp-02-a83ac4580055@qwiklabs-gcp-02-a83ac4580055.iam.gserviceaccount.com"
-backend_bucket     = "tf-state-bkt-001"
+project_id         = "qwiklabs-gcp-01-d961d1828cf4"
+region             = "us-central1"
+zone               = "us-central-a"
+service_account    = "qwiklabs-gcp-01-d961d1828cf4@qwiklabs-gcp-01-d961d1828cf4.iam.gserviceaccount.com"
+backend_bucket     = "tf-state-bkt-002"
 create_vpc         = true
 create_subnet      = true
 create_firewall    = true
