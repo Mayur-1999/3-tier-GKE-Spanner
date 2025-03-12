@@ -4,5 +4,5 @@
 # }
 
 output "network_self_link" {
-  value = google_compute_network.network.self_link
+  value = google_compute_network.network[0].self_link
 }
