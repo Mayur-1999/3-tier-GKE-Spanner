@@ -81,7 +81,7 @@ gcloud projects add-iam-policy-binding $GKE_PROJECT \
 ```
 
 ## Self-Hosted-GitHub-Runner
--- Note: Self hosted github runner is used in kubernetes deployment workflows as its a private cluster.
+Note: Self hosted github runner is used in kubernetes deployment workflows as its a private cluster.
 
 * create Linux VM & associated firewall 
 ```
