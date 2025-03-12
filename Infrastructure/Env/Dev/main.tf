@@ -10,7 +10,7 @@ module "subnetwork" {
   source      = "../../modules/subnet"
   project_id  = var.project_id
   region      = var.region
-  network     = module.network.network
+  network     = module.network[0].network
   subnet_info = var.subnet_info
   depends_on = [
     module.network
@@ -21,7 +21,7 @@ module "app-firewall" {
   count         = var.create_firewall ? 1 : 0
   source        = "../../modules/firewall"
   project_id    = var.project_id
-  network       = module.network.network
+  network       = module.network[0].network
   firewall_info = var.firewall_info
   allow = [{
     protocol = "TCP"
@@ -36,7 +36,7 @@ module "ssh-firewall" {
   count         = var.create_firewall ? 1 : 0
   source        = "../../modules/firewall"
   project_id    = var.project_id
-  network       = module.network.network
+  network       = module.network[0].network
   firewall_info = var.ssh_firewall_info
   allow = [{
     protocol = "TCP"
@@ -52,7 +52,7 @@ module "nat-gateway" {
   source       = "../../modules/nat-gateway"
   project_id   = var.project_id
   region       = var.region
-  network      = module.network.network
+  network      = module.network[0].network
   gateway_name = "nat-gateway"
 }
 
@@ -77,7 +77,7 @@ module "gke_cluster" {
   project_id      = var.project_id
   zone            = var.zone
   cluster_info    = var.cluster_info
-  network         = module.network.network
+  network         = module.network[0].network
   subnetwork      = module.subnetwork.subnet.self_link
   service_account = var.service_account
   private_cluster_config = [{
