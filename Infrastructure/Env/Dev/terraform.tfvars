@@ -1,6 +1,6 @@
 project_id         = "qwiklabs-gcp-01-d961d1828cf4"
 region             = "us-central1"
-zone               = "us-central-b"
+zone               = "us-central-a"
 service_account    = "qwiklabs-gcp-01-d961d1828cf4@qwiklabs-gcp-01-d961d1828cf4.iam.gserviceaccount.com"
 create_vpc         = true
 create_subnet      = true
