@@ -93,7 +93,7 @@ module "gke_cluster" {
 
   node_pools = {
     linux_pool = {
-      name               = "linux-pool"
+      name               = "app-linux-pool"
       machine_type       = "e2-medium"
       disk_size_gb       = 50
       initial_node_count = 2
