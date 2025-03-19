@@ -91,12 +91,13 @@ module "gke_cluster" {
     services_ipv4_cidr_block = "10.3.0.0/21"
   }]
 
+  # zonal cluster, each zone will have one node 
   node_pools = {
     linux_pool_1 = {
       name               = "app-linux-pool"
       machine_type       = "e2-medium"
       disk_size_gb       = 50
-      initial_node_count = 2
+      initial_node_count = 1
       min_node_count     = 1
       max_node_count     = 4
       locations          = ["us-central1-a", "us-central1-b"]
@@ -116,7 +117,7 @@ module "gke_cluster" {
       initial_node_count = 1
       min_node_count     = 1
       max_node_count     = 4
-      locations          = ["us-central1-a", "us-central1-b"]
+      locations          = ["us-central1-a"]
       labels             = { os = "linux" }
       taint              = []
     }
