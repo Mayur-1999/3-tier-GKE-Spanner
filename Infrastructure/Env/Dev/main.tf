@@ -103,9 +103,9 @@ module "gke_cluster" {
       labels             = { os = "linux" }
       taint = [
         {
-          key    = "os"
-          value  = "linux"
-          effect = "NO_SCHEDULE"
+          key    = ""
+          value  = ""
+          effect = ""
         },
       ]
     }
