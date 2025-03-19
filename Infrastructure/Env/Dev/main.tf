@@ -92,7 +92,7 @@ module "gke_cluster" {
   }]
 
   node_pools = {
-    linux_pool = {
+    linux_pool_1 = {
       name               = "app-linux-pool"
       machine_type       = "e2-medium"
       disk_size_gb       = 50
@@ -103,11 +103,22 @@ module "gke_cluster" {
       labels             = { os = "linux" }
       taint = [
         {
-          key    = ""
-          value  = ""
-          effect = ""
+          key    = "os"
+          value  = "linux"
+          effect = "NO_SCHEDULE"
         },
       ]
+    },
+    linux_pool_2 = {
+      name               = "linux-pool"
+      machine_type       = "e2-medium"
+      disk_size_gb       = 50
+      initial_node_count = 1
+      min_node_count     = 1
+      max_node_count     = 4
+      locations          = ["us-central1-a", "us-central1-b"]
+      labels             = { os = "linux" }
+      taint              = []
     }
   }
 }
