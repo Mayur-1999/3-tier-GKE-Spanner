@@ -2,7 +2,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "tf-state-bkt-003"
+    bucket = "tf-state-bkt-004"
     prefix = "terraform/dev-state"
   }
 }
