@@ -114,10 +114,10 @@ module "gke_cluster" {
       name               = "linux-pool"
       machine_type       = "e2-medium"
       disk_size_gb       = 50
-      initial_node_count = 1
-      min_node_count     = 1
+      initial_node_count = 2
+      min_node_count     = 2
       max_node_count     = 4
-      locations          = ["us-west1-a", "us-west1-b"]
+      locations          = ["us-west1-a"]
       labels             = { os = "linux" }
       taint              = []
     }
