@@ -1,0 +1,35 @@
+name: Service Mesh CI 
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - Dev
+      - Test
+      - Prod
+    paths:
+      - Istio-1.25.0/**
+      - .github/workflows/servicemesh_ci.yaml
+jobs:
+  Istio-Artifact:
+    runs-on: ubuntu-latest    
+    defaults:
+      run:
+        shell: bash
+        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/Istio-1.25.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: List Content
+        run: |
+            ls 
+  
+      - uses: actions/checkout@v3
+      - name: Echo
+        run: echo "Creating artifact"
+        
+      - uses: actions/upload-artifact@main
+        name: Uploading Istio Artifact
+        with:
+          name: Istio-Artifacts
+          path: ./Istio/*
