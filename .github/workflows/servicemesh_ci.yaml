@@ -32,4 +32,4 @@ jobs:
         name: Uploading Istio Artifact
         with:
           name: Istio-Artifacts
-          path: ./Istio/*
+          path: ./Istio-1.25.0/*
