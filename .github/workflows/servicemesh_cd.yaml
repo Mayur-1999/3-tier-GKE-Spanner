@@ -107,15 +107,15 @@ jobs:
     
     - name: Install prometheus
       run: |
-         istioctl install -f prometheus.yaml -y
+         istioctl install -f Istio-Artifacts/prometheus.yaml -y
 
     - name: Install Grafana
       run: |
-         istioctl install -f grafana.yaml -y
+         istioctl install -f Istio-Artifacts/grafana.yaml -y
 
     - name: Install Kiali
       run: |
-         istioctl install -f kiali.yaml -y
+         istioctl install -f Istio-Artifacts/kiali.yaml -y
 
   Install-Istio-Prod:
     name: 'Verify Prod Deployment: ${{ inputs.app_name }}'
@@ -164,12 +164,12 @@ jobs:
     
     - name: Install prometheus
       run: |
-         istioctl install -f prometheus.yaml -y
+         istioctl install -f Istio-Artifacts/prometheus.yaml -y
 
     - name: Install Grafana
       run: |
-         istioctl install -f grafana.yaml -y
+         istioctl install -f Istio-Artifacts/grafana.yaml -y
 
     - name: Install Kiali
       run: |
-         istioctl install -f kiali.yaml -y
+         istioctl install -f Istio-Artifacts/kiali.yaml -y
