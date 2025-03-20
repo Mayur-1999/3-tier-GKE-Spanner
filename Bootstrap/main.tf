@@ -5,7 +5,7 @@ variable "project_id" {
 
 variable "state_bucket_name" {
   type    = string
-  default = "tf-state-bkt-002"
+  default = "tf-state-bkt-006"
 }
 
 variable "region" {

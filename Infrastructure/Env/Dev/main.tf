@@ -93,31 +93,31 @@ module "gke_cluster" {
 
   # zonal cluster, each zone will have one node 
   node_pools = {
-    # linux_pool_1 = {
-    #   name               = "app-linux-pool"
-    #   machine_type       = "e2-medium"
-    #   disk_size_gb       = 50
-    #   initial_node_count = 1
-    #   min_node_count     = 1
-    #   max_node_count     = 4
-    #   locations          = ["us-west1-a", "us-west1-b"]
-    #   labels             = { os = "linux" }
-    #   taint = [
-    #     {
-    #       key    = "os"
-    #       value  = "linux"
-    #       effect = "NO_SCHEDULE"
-    #     },
-    #   ]
-    # },
+    linux_pool_1 = {
+      name               = "app-linux-pool"
+      machine_type       = "e2-medium"
+      disk_size_gb       = 50
+      initial_node_count = 1
+      min_node_count     = 1
+      max_node_count     = 4
+      locations          = ["us-central1-a", "us-central1-b"]
+      labels             = { os = "linux" }
+      taint = [
+        {
+          key    = "os"
+          value  = "linux"
+          effect = "NO_SCHEDULE"
+        },
+      ]
+    },
     linux_pool_2 = {
       name               = "linux-pool"
-      machine_type       = "e2-medium"
+      machine_type       = "n4-standard-4"
       disk_size_gb       = 50
       initial_node_count = 2
       min_node_count     = 2
       max_node_count     = 4
-      locations          = ["us-west1-a"]
+      locations          = ["us-central1-a"]
       labels             = { os = "linux" }
       taint              = []
     }
