@@ -1,7 +1,7 @@
-project_id         = "qwiklabs-gcp-04-51c34fe05439"
-region             = "us-central1"
-zone               = "us-central1-a"
-service_account    = "qwiklabs-gcp-04-51c34fe05439@qwiklabs-gcp-04-51c34fe05439.iam.gserviceaccount.com"
+project_id         = "qwiklabs-gcp-02-f1da8b2640df"
+region             = "us-east1"
+zone               = "us-east1-d"
+service_account    = "qwiklabs-gcp-02-f1da8b2640df@qwiklabs-gcp-02-f1da8b2640df.iam.gserviceaccount.com"
 create_vpc         = true
 create_subnet      = true
 create_firewall    = true
