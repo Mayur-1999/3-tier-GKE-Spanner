@@ -46,7 +46,7 @@ resource "google_compute_instance" "github-runner" {
   }
 
   network_interface {
-    subnetwork = "projects/${var.project_id}/regions/us-central1/subnetworks/subnet"
+    subnetwork = "projects/${var.project_id}/regions/${var.region}/subnetworks/subnet"
     access_config {}
   }
 
