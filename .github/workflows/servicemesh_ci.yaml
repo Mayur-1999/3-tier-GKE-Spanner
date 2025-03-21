@@ -1,4 +1,4 @@
-name: Service Mesh CI 
+name: Service Mesh Build
 on:
   workflow_dispatch:
   push:

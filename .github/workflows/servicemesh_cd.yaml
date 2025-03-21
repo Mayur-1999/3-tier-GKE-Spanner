@@ -1,4 +1,4 @@
-name: Helm Deploy
+name: Service Mesh Deploy
 on:
   workflow_dispatch:
 
