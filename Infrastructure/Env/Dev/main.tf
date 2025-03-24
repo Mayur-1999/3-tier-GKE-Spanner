@@ -47,6 +47,30 @@ module "ssh-firewall" {
   ]
 }
 
+module "gke-internal-firewall" {
+  count         = var.create_firewall ? 1 : 0
+  source        = "../../modules/firewall"
+  project_id    = var.project_id
+  network       = module.network[0].network
+  firewall_info = var.internal_firewall_info
+  allow = [{
+    protocol = "TCP"
+    ports    = ["0-65535", "9443", "80", "443", "10250"]
+    },
+    {
+      protocol = "UDP"
+      ports    = ["0-65535"]
+    },
+    {
+      protocol = "ICMP"
+      ports    = []
+    }
+  ]
+  depends_on = [
+    module.network
+  ]
+}
+
 module "nat-gateway" {
   count        = var.create_nat-gateway ? 1 : 0
   source       = "../../modules/nat-gateway"

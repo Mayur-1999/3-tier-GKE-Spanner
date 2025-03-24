@@ -82,6 +82,23 @@ variable "ssh_firewall_info" {
   }
 }
 
+variable "internal_firewall_info" {
+  type = object({
+    name          = string
+    description   = string
+    direction     = string
+    priority      = string
+    source_ranges = list(string)
+  })
+  default = {
+    name          = "allow-gke-node-to-node"
+    description   = "internal gke firewall"
+    direction     = "INGRESS"
+    priority      = "999"
+    source_ranges = ["10.1.0.0/28", "10.2.0.0/21", "10.3.0.0/21", "10.0.0.0/28"]
+  }
+}
+
 variable "vpc_info" {
   type = object({
     name                            = string
