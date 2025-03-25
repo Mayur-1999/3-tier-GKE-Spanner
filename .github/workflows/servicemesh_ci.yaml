@@ -7,7 +7,7 @@ on:
       - Test
       - Prod
     paths:
-      - Istio-1.25.0/**
+      - istio-1.20.2/**
       - .github/workflows/servicemesh_ci.yaml
 jobs:
   Istio-Artifact:
@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/Istio-1.25.0
+        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/istio-1.20.2
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,4 +32,4 @@ jobs:
         name: Uploading Istio Artifact
         with:
           name: Istio-Artifacts
-          path: ./Istio-1.25.0/*
+          path: ./istio-1.20.2/*

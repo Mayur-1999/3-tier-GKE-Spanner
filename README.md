@@ -17,6 +17,11 @@ This project demonstrates the end-to-end automation of a robust, cloud-native ap
 | [![Infrastructure CI](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_ci.yaml) |
 | [![Infrastructure CD](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-SQL/actions/workflows/infra_cd.yaml) |
 
+| Istio Pipeline Status |
+| --------------- |
+| [![Service Mesh Build](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/servicemesh_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/servicemesh_ci.yaml) |
+| [![Service Mesh Deploy](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/servicemesh_cd.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/servicemesh_cd.yaml)|
+
 | Frontend Service Pipeline Status |
 | --------------- |
 |[![Frontend Service Build](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_ci.yaml/badge.svg)](https://github.com/Mayur-1999/3-tier-GKE-Spanner/actions/workflows/frontend_ci.yaml)|
@@ -182,3 +187,39 @@ tar xzf ./actions-runner-linux-x64-2.322.0.tar.gz
 | create_reserve-ip  | Reserve IP for External Load Balancer | `bool` | true       |
 | create_cloud-armor | Create Cloud Armor rule for External Load Balancer| `bool` | false      |
 | create_lb          | Create Loadbalancer | `bool` | false      | 
+
+# Istio Setup [[Link](https://cloud.google.com/kubernetes-engine/docs/tutorials/secure-services-istio#deploy-sample-app)]
+
+* Download istio:
+```
+export ISTIO_VERSION=1.20.2
+curl -L https://istio.io/downloadIstio | TARGET_ARCH=$(uname -m) sh -
+```
+
+* Add the istioctl command line tool to the PATH:
+```
+cd istio-${ISTIO_VERSION}
+export PATH=$PWD/bin:$PATH
+```
+
+* Install Istio on the cluster:
+```
+istioctl install --set profile="default" -y
+```
+
+* Add a namespace label that instructs Istio to enable automatic injection of Envoy sidecar proxies:
+```
+kubectl label namespace default istio-injection=enabled
+```
+
+# Deploy sample application 
+
+* Create Hello World deployment:
+```
+kubectl create deployment hello-server --image=gcr.io/google-samples/hello-app:1.0
+```
+
+* Create LoadBalancer for Hello World:
+```
+kubectl expose deployment hello-server --type="LoadBalancer" --port 8080
+```
