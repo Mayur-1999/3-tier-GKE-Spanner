@@ -1,7 +1,8 @@
 <h1 align="center" style="margin-top: 0px;">3-tier-GKE-Spanner</h1>
 <div align="center">
-<img width="100%" alt="image001" src="https://github.com/user-attachments/assets/bedf2526-4174-4c53-85ce-447390fa34ca" />
+<img width="100%" alt="image001" src="https://github.com/user-attachments/assets/31492f5d-feb7-49bc-9602-e5d4618987c3" />
 </div>
+
 
 # About:
 This project demonstrates the end-to-end automation of a robust, cloud-native application deployment on Google Cloud Platform (GCP). A three-tier architecture was implemented, featuring a private Google Kubernetes Engine (GKE) cluster for hosting an online boutique application and Google Cloud Spanner as the backend database. The entire infrastructure provisioning was automated using Terraform, with continuous integration (CI) facilitated by GitHub Actions. Application deployments to the GKE cluster were also automated using Helm and GitHub Actions, leveraging a self-hosted GitHub runner. This project showcases a fully automated, scalable, and secure application deployment pipeline on GCP.
