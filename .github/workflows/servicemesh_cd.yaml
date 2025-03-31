@@ -4,7 +4,7 @@ on:
 
 jobs:
   Install-Istio-Dev:
-    name: 'Verify Dev Deployment: ${{ inputs.app_name }}'
+    name: 'Istio Dev Deployment'
     runs-on: self-hosted
     defaults:
       run:
@@ -40,11 +40,10 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: Install Istio
       run: |
-          ls 
           cd Istio-Artifacts
           export PATH=$PWD/bin:$PATH
           chmod +x bin/istioctl
@@ -64,7 +63,7 @@ jobs:
          kubectl apply -f Istio-Artifacts/kiali.yaml
 
   Install-Istio-Test:
-    name: 'Verify Test Deployment: ${{ inputs.app_name }}'
+    name: 'Istio Test Deployment'
     runs-on: self-hosted
     defaults:
       run:
@@ -100,28 +99,30 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: Install Istio
       run: |
+          cd Istio-Artifacts
           export PATH=$PWD/bin:$PATH
-          istioctl install -f Istio-Artifacts/istio.yaml -y
+          chmod +x bin/istioctl
+          istioctl install --set profile="default" -y
           kubectl label namespace default istio-injection=enabled
     
     - name: Install prometheus
       run: |
-         istioctl install -f Istio-Artifacts/prometheus.yaml -y
+         kubectl apply -f Istio-Artifacts/prometheus.yaml
 
     - name: Install Grafana
       run: |
-         istioctl install -f Istio-Artifacts/grafana.yaml -y
+         kubectl apply -f Istio-Artifacts/grafana.yaml
 
     - name: Install Kiali
       run: |
-         istioctl install -f Istio-Artifacts/kiali.yaml -y
+         kubectl apply -f Istio-Artifacts/kiali.yaml
 
   Install-Istio-Prod:
-    name: 'Verify Prod Deployment: ${{ inputs.app_name }}'
+    name: 'Istio Prod Deployment'
     runs-on: self-hosted
     defaults:
       run:
@@ -157,22 +158,24 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: Install Istio
       run: |
+          cd Istio-Artifacts
           export PATH=$PWD/bin:$PATH
-          istioctl install -f Istio-Artifacts/istio.yaml -y
+          chmod +x bin/istioctl
+          istioctl install --set profile="default" -y
           kubectl label namespace default istio-injection=enabled
     
     - name: Install prometheus
       run: |
-         istioctl install -f Istio-Artifacts/prometheus.yaml -y
+         kubectl apply -f Istio-Artifacts/prometheus.yaml
 
     - name: Install Grafana
       run: |
-         istioctl install -f Istio-Artifacts/grafana.yaml -y
+         kubectl apply -f Istio-Artifacts/grafana.yaml
 
     - name: Install Kiali
       run: |
-         istioctl install -f Istio-Artifacts/kiali.yaml -y
+         kubectl apply -f Istio-Artifacts/kiali.yaml

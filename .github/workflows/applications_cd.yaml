@@ -74,7 +74,7 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -153,7 +153,7 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -232,7 +232,7 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -310,7 +310,7 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -389,7 +389,7 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |
@@ -467,7 +467,7 @@ jobs:
           gcloud components install gke-gcloud-auth-plugin
           gke-gcloud-auth-plugin --version
           gcloud config set project "${{vars.PROJECT_ID}}"
-          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_ZONE}}"
+          gcloud container clusters get-credentials "${{vars.GKE_CLUSTER_NAME}}" --region="${{vars.GKE_REGION}}"
 
     - name: ${{ inputs.helm_command}} ${{ inputs.app_name }} Application
       run: |

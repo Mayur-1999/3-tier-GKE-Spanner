@@ -63,7 +63,7 @@ jobs:
     needs: Terraform-Plan
     environment:
      name: Dev_Env
-     url: https://github.com
+
     steps: 
       - name: Deployment Environment
         run: echo "Dev Env Deployment"
@@ -122,7 +122,7 @@ jobs:
     needs: Terraform-Plan
     environment:
      name: Test_Env
-     url: https://github.com
+
     steps: 
       - name: Deployment Environment
         run: echo "Dev Env Deployment"
@@ -180,7 +180,7 @@ jobs:
     needs: Terraform-Plan
     environment:
      name: Prod_Env
-     url: https://github.com
+
     steps: 
       - name: Deployment Environment
         run: echo "Dev Env Deployment"
