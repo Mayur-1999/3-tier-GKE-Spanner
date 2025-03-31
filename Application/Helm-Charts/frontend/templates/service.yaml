@@ -24,4 +24,4 @@ spec:
   selector:
     app: {{ .Values.frontend_service_name }}-{{ .Release.Revision }}
   type: {{ .Values.external_service.type }} #LoadBalancer
-  loadBalancerIP: {{ .Values.external_service.ip }}
+#  loadBalancerIP: {{ .Values.external_service.ip }}
