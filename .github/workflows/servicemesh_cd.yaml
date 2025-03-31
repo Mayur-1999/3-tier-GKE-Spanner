@@ -45,7 +45,7 @@ jobs:
     - name: Install Istio
       run: |
           ls 
-          cd Istio-Artifact
+          cd Istio-Artifacts
           export PATH=$PWD/bin:$PATH
           istioctl install --set profile="default" -y
           kubectl label namespace default istio-injection=enabled
