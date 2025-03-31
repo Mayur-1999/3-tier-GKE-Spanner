@@ -7,4 +7,4 @@ internal_service:
 external_service:
   port: 80
   type: LoadBalancer
-  ip: 36.58.211.177
+  ip: 34.46.240.98
