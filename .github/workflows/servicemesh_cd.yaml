@@ -53,15 +53,15 @@ jobs:
     
     - name: Install prometheus
       run: |
-         kubectl apply -f Istio-Artifacts/prometheus.yaml -y
+         kubectl apply -f Istio-Artifacts/prometheus.yaml
 
     - name: Install Grafana
       run: |
-         kubectl apply -f Istio-Artifacts/grafana.yaml -y
+         kubectl apply -f Istio-Artifacts/grafana.yaml
 
     - name: Install Kiali
       run: |
-         kubectl apply -f Istio-Artifacts/kiali.yaml -y
+         kubectl apply -f Istio-Artifacts/kiali.yaml
 
   Install-Istio-Test:
     name: 'Verify Test Deployment: ${{ inputs.app_name }}'
