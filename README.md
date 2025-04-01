@@ -5,8 +5,7 @@
 
 
 # About:
-This project demonstrates the end-to-end automation of a robust, cloud-native application deployment on Google Cloud Platform (GCP). A three-tier architecture was implemented, featuring a private Google Kubernetes Engine (GKE) cluster for hosting an online boutique application and Google Cloud Spanner as the backend database. The entire infrastructure provisioning was automated using Terraform, with continuous integration (CI) facilitated by GitHub Actions. Application deployments to the GKE cluster were also automated using Helm and GitHub Actions, leveraging a self-hosted GitHub runner. This project showcases a fully automated, scalable, and secure application deployment pipeline on GCP.
-
+This project demonstrates the end-to-end automation of a robust, cloud-native application deployment on Google Cloud Platform (GCP). A three-tier architecture was implemented, featuring a private Google Kubernetes Engine (GKE) cluster for hosting an online boutique application and Google Cloud Spanner as the backend database. To enhance observability and monitoring, Istio as a service mesh has been integrated within the GKE cluster, alongside Prometheus and Grafana. The entire infrastructure provisioning was automated using Terraform, with continuous integration (CI) facilitated by GitHub Actions. Application deployments to the GKE cluster were also automated using Helm and GitHub Actions, leveraging a self-hosted GitHub runner. This setup enables comprehensive monitoring of the application's performance and traffic patterns through Istio's telemetry, visualized with Prometheus and Grafana. This project showcases a fully automated, scalable, secure, and observable application deployment pipeline on GCP.
 
 # Pipelines:
 | Terraform Readme Update Pipeline Status |
