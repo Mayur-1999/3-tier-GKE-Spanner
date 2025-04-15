@@ -27,9 +27,7 @@ jobs:
 
       - name: List Content
         run: |
-            ls 
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-            ls
      
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
@@ -46,12 +44,12 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan 
-        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan 
+      #   working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
   Dev-Deployment:
     name: Dev:Terraform Apply
@@ -79,9 +77,7 @@ jobs:
 
       - name: List Content
         run: |
-            ls 
             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-            ls
             echo ${{ inputs.project_env }}
 
       - name: Set up Terraform
@@ -99,18 +95,18 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan 
-        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan 
+      #   working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
-        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve
+      #   working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+      #   env:
+      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
 
   Test-Deployment:
     name: Test:Terraform Apply
