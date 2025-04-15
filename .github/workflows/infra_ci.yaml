@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/runner/work/3-tier-GKE-Spanner/3-tier-GKE-Spanner/Infrastructure
+        working-directory: ${{ github.workspace }}/Infrastructure
     steps:
       - name: Checkout
         uses: actions/checkout@v2
