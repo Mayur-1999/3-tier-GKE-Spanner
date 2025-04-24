@@ -1,3 +1,264 @@
+# name: 'Infrastructure CD'
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       project_env:
+#         description: "Project Env - Dev, Test, Prod"
+#         required: True
+
+# env:
+#     project_env: ${{ inputs.project_env }}
+
+# jobs:   
+#   Dev-Terraform-Plan:
+#     name: Dev:Terraform Plan
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         shell: bash
+#     if: ${{ inputs.project_env == 'Dev' }}
+#     environment:
+#      name: Dev_Env
+#     steps:    
+#       - name: Download Artifacts
+#         uses: dawidd6/action-download-artifact@v8
+#         with:
+#           workflow: infra_ci.yaml
+#           github_token: ${{ github.token }}
+#           repo: ${{ github.repository }}
+#           name: Infrastructure-Artifacts
+#           path: Infrastructure-Artifacts
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v1
+
+#       - name: Terraform Init
+#         run: terraform init
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Validate
+#         run: terraform validate
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Plan
+#         id: plan
+#         run: terraform plan 
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#   Dev-Deployment:
+#     name: Dev:Terraform Apply
+#     runs-on: ubuntu-latest 
+#     defaults:
+#       run:
+#         shell: bash
+#     if: ${{ inputs.project_env == 'Dev' }}
+#     needs: Dev-Terraform-Plan
+#     environment:
+#      name: Dev_Env
+
+#     steps: 
+#       - name: Deployment Environment
+#         run: echo "Dev Env Deployment"
+        
+#       - name: Download Artifacts
+#         uses: dawidd6/action-download-artifact@v8
+#         with:
+#           workflow: infra_ci.yaml
+#           github_token: ${{ github.token }}
+#           repo: ${{ github.repository }}
+#           name: Infrastructure-Artifacts
+#           path: Infrastructure-Artifacts
+
+#       - name: List Content
+#         run: |
+#             cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#             echo ${{ inputs.project_env }}
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v1
+
+#       - name: Terraform Init
+#         run: terraform init
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Apply
+#         run: terraform apply -auto-approve
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
+
+#   Test-Terraform-Plan:
+#     name: Test:Terraform Plan
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         shell: bash
+#     if: ${{ inputs.project_env == 'Test' }}
+#     environment:
+#      name: Test_Env
+#     steps:    
+#       - name: Download Artifacts
+#         uses: dawidd6/action-download-artifact@v8
+#         with:
+#           workflow: infra_ci.yaml
+#           github_token: ${{ github.token }}
+#           repo: ${{ github.repository }}
+#           name: Infrastructure-Artifacts
+#           path: Infrastructure-Artifacts
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v1
+
+#       - name: Terraform Init
+#         run: terraform init
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Validate
+#         run: terraform validate
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Plan
+#         id: plan
+#         run: terraform plan 
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#   Test-Deployment:
+#     name: Test:Terraform Apply
+#     runs-on: ubuntu-latest 
+#     defaults:
+#       run:
+#         shell: bash
+#     if: ${{ inputs.project_env == 'Test' }}
+#     needs: Test-Terraform-Plan
+#     environment:
+#      name: Test_Env
+
+#     steps: 
+#       - name: Deployment Environment
+#         run: echo "Dev Env Deployment"
+#       - name: Download Artifacts
+#         uses: dawidd6/action-download-artifact@v8
+#         with:
+#           workflow: infra_ci.yaml
+#           github_token: ${{ github.token }}
+#           repo: ${{ github.repository }}
+#           name: Infrastructure-Artifacts
+#           path: Infrastructure-Artifacts
+
+#       - name: Checkout
+#         uses: actions/checkout@v2
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v1
+
+#       - name: Terraform Init
+#         run: terraform init
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Apply
+#         run: terraform apply -auto-approve
+
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
+
+#   Prod-Terraform-Plan:
+#     name: Prod:Terraform Plan
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         shell: bash
+#     if: ${{ inputs.project_env == 'Prod' }}
+#     environment:
+#      name: Prod_Env
+#     steps:    
+#       - name: Download Artifacts
+#         uses: dawidd6/action-download-artifact@v8
+#         with:
+#           workflow: infra_ci.yaml
+#           github_token: ${{ github.token }}
+#           repo: ${{ github.repository }}
+#           name: Infrastructure-Artifacts
+#           path: Infrastructure-Artifacts
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v1
+
+#       - name: Terraform Init
+#         run: terraform init
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Validate
+#         run: terraform validate
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Plan
+#         id: plan
+#         run: terraform plan 
+#         working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#   Prod-Deployment:
+#     name: Prod:Terraform Apply
+#     runs-on: ubuntu-latest 
+#     defaults:
+#       run:
+#         shell: bash
+#     if: ${{ inputs.project_env == 'Prod' }}
+#     needs: Prod-Terraform-Plan
+#     environment:
+#      name: Prod_Env
+
+#     steps: 
+#       - name: Deployment Environment
+#         run: echo "Dev Env Deployment"
+#       - name: Download Artifacts
+#         uses: dawidd6/action-download-artifact@v8
+#         with:
+#           workflow: infra_ci.yaml
+#           github_token: ${{ github.token }}
+#           repo: ${{ github.repository }}
+#           name: Infrastructure-Artifacts
+#           path: Infrastructure-Artifacts
+            
+#       - name: Checkout
+#         uses: actions/checkout@v2
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v1
+
+#       - name: Terraform Init
+#         run: terraform init
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+
+#       - name: Terraform Apply
+#         run: terraform apply -auto-approve
+
+#         env:
+#           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
+
+
+
 name: 'Infrastructure CD'
 on:
   workflow_dispatch:
@@ -5,67 +266,23 @@ on:
       project_env:
         description: "Project Env - Dev, Test, Prod"
         required: True
+        type: choice
+        options:
+          - Dev
+          - Test
+          - Prod
 
 env:
-    project_env: ${{ inputs.project_env }}
+  PROJECT_ENV: ${{ inputs.project_env }}
+  TF_WORKING_DIR: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
 
-jobs:   
+jobs:
   Terraform-Plan:
+    name: Terraform ${{ env.PROJECT_ENV }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:    
-      - name: Download Artifacts
-        uses: dawidd6/action-download-artifact@v8
-        with:
-          workflow: infra_ci.yaml
-          github_token: ${{ github.token }}
-          repo: ${{ github.repository }}
-          name: Infrastructure-Artifacts
-          path: Infrastructure-Artifacts
-
-      - name: List Content
-        run: |
-            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-     
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-
-      - name: Terraform Init
-        run: terraform init
-        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-      - name: Terraform Validate
-        run: terraform validate
-        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan 
-      #   working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-  Dev-Deployment:
-    name: Dev:Terraform Apply
-    runs-on: ubuntu-latest 
-    defaults:
-      run:
-        shell: bash
-    if: ${{ inputs.project_env == 'Dev' }}
-    needs: Terraform-Plan
     environment:
-     name: Dev_Env
-
-    steps: 
-      - name: Deployment Environment
-        run: echo "Dev Env Deployment"
-        
+      name: ${{ env.PROJECT_ENV }}_Env
+    steps:
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@v8
         with:
@@ -75,111 +292,35 @@ jobs:
           name: Infrastructure-Artifacts
           path: Infrastructure-Artifacts
 
-      - name: List Content
-        run: |
-            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-            echo ${{ inputs.project_env }}
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+        working-directory: ${{ env.TF_WORKING_DIR }}
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}
 
       - name: Terraform Validate
         run: terraform validate
-        working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
+        working-directory: ${{ env.TF_WORKING_DIR }}
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan 
-      #   working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
-      #   working-directory: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-      #   env:
-      #     GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}     
-
-  Test-Deployment:
-    name: Test:Terraform Apply
-    runs-on: ubuntu-latest 
-    defaults:
-      run:
-        shell: bash
-    if: ${{ inputs.project_env == 'Test' }}
-    needs: Terraform-Plan
-    environment:
-     name: Test_Env
-
-    steps: 
-      - name: Deployment Environment
-        run: echo "Dev Env Deployment"
-      - name: Download Artifacts
-        uses: dawidd6/action-download-artifact@v8
-        with:
-          workflow: infra_ci.yaml
-          github_token: ${{ github.token }}
-          repo: ${{ github.repository }}
-          name: Infrastructure-Artifacts
-          path: Infrastructure-Artifacts
-
-      - name: List Content
-        run: |
-            ls 
-            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-            ls
-            echo ${{ inputs.project_env }}
-     
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-
-      - name: Terraform Init
-        run: terraform init
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-      - name: Terraform Validate
-        run: terraform validate
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan 
+        run: terraform plan -no-color -input=false
+        working-directory: ${{ env.TF_WORKING_DIR }}
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
 
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
-
-  Prod-Deployment:
-    name: Prod:Terraform Apply
-    runs-on: ubuntu-latest 
-    defaults:
-      run:
-        shell: bash
-    if: ${{ inputs.project_env == 'Prod' }}
-    needs: Terraform-Plan
+  Terraform-Apply:
+    name: Terraform ${{ env.PROJECT_ENV }}
+    runs-on: ubuntu-latest
     environment:
-     name: Prod_Env
-
-    steps: 
-      - name: Deployment Environment
-        run: echo "Dev Env Deployment"
+      name: ${{ env.PROJECT_ENV }}_Env
+    steps:
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@v8
         with:
@@ -189,37 +330,17 @@ jobs:
           name: Infrastructure-Artifacts
           path: Infrastructure-Artifacts
 
-      - name: List Content
-        run: |
-            ls 
-            cd ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
-            ls
-            echo ${{ inputs.project_env }}
-            
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ${{ env.TF_WORKING_DIR }}
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-
-      - name: Terraform Validate
-        run: terraform validate
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
-          
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan 
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }} 
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
-
+        run: terraform apply -auto-approve -input=false
+        working-directory: ${{ env.TF_WORKING_DIR }}
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}   
+          GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}
