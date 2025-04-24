@@ -19,10 +19,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: List Content
-        run: |
-            ls 
         
       - name: 'Set up Terraform'
         uses: hashicorp/setup-terraform@v1
@@ -32,11 +28,7 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
-      
-      - uses: actions/checkout@v3
-      - name: Echo
-        run: echo "Creating artifact"
-        
+
       - uses: actions/upload-artifact@main
         name: Uploading Infrastructure Artifact
         with:
