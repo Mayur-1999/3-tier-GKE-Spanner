@@ -12,15 +12,14 @@ on:
           - Prod
 
 env:
-  PROJECT_ENV: ${{ inputs.project_env }}
   TF_WORKING_DIR: ./Infrastructure-Artifacts/Env/${{ inputs.project_env }}
 
 jobs:
   Terraform-Plan:
-    name: ${{ env.PROJECT_ENV }}-Terraform-Plan
+    name: ${{ github.event.inputs.project_env }}-Terraform-Plan
     runs-on: ubuntu-latest
     environment:
-      name: ${{ env.PROJECT_ENV }}_Env
+      name: ${{ github.event.inputs.project_env }}_Env
     steps:
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@v8
@@ -53,13 +52,12 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.SA_KEY }}
 
-
   Terraform-Apply:
-    name: ${{ env.PROJECT_ENV }}-Terraform-Apply
+    name: ${{ github.event.inputs.project_env }}-Terraform-Apply
     runs-on: ubuntu-latest
     needs: Terraform-Plan
     environment:
-      name: ${{ env.PROJECT_ENV }}_Env
+      name: ${{ github.event.inputs.project_env }}_Env
     steps:
       - name: Download Artifacts
         uses: dawidd6/action-download-artifact@v8
